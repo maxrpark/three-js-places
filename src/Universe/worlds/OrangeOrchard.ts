@@ -25,9 +25,11 @@ export default class OrangeOrchard {
     this.leftArea = new UniversalBlock({
       topReceiveShadow: true,
 
-      bottomColor: "#724818",
       height: 0.95,
-
+      bottomTextures: {
+        color: this.resources.items.dirtColor,
+        normal: this.resources.items.dirtNormal,
+      },
       topTextures: {
         color: this.resources.items.grassColor,
         normal: this.resources.items.grassNormal,
@@ -39,8 +41,10 @@ export default class OrangeOrchard {
     this.centerArea = new UniversalBlock({
       topReceiveShadow: true,
 
-      bottomColor: "#724818",
-
+      bottomTextures: {
+        color: this.resources.items.dirtColor,
+        normal: this.resources.items.dirtNormal,
+      },
       topTextures: {
         color: this.resources.items.floorStoneColor,
         normal: this.resources.items.floorStoneNormal,
@@ -49,10 +53,12 @@ export default class OrangeOrchard {
   }
   createRightArea() {
     this.rightArea = new UniversalBlock({
-      bottomColor: "#724818",
       height: 0.95,
       topReceiveShadow: true,
-
+      bottomTextures: {
+        color: this.resources.items.dirtColor,
+        normal: this.resources.items.dirtNormal,
+      },
       topTextures: {
         color: this.resources.items.grassColor,
         normal: this.resources.items.grassNormal,

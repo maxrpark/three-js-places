@@ -313,10 +313,10 @@ export default class FruitThree {
     }
   }
   createFruitsBase() {
-    const count = 4;
+    const count = Math.floor(3 + Math.random() * 5);
     for (let i = 0; i < count; i++) {
       const angle = Math.random() * Math.PI * 2; // Random angle
-      const radius = Math.random() * 0.4; // Random radius
+      const radius = 0.08 + Math.random() * 0.6; // Random radius
       const x = Math.cos(angle) * radius; // Get the x position using cosines
       const y = Math.sin(angle) * radius; // Get the z position using sinus
 

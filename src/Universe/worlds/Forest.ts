@@ -14,6 +14,7 @@ export default class Forest implements ForestInt {
   leftArea: UniversalBlock;
   centerArea: UniversalBlock;
   rightArea: UniversalBlock;
+
   world: Group;
   resources: Resources;
   textures: any;

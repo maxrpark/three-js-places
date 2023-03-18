@@ -67,6 +67,7 @@ export class Experience implements ExperienceInt {
   resize() {
     this.camera.resize();
     this.renderer.resize();
+    if (this.sizes.width < 400) this.debug.closeControls();
   }
   destroy() {
     this.sizes.off("resize");
