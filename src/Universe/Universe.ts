@@ -49,9 +49,9 @@ export class Universe {
     this.selectedWorld = Forest;
     this.createNewworld();
 
-    const debug = {
-      color: "#ff0000",
-    };
+    // const debug = {
+    //   color: "#ff0000",
+    // };
 
     this.debugFolder
       .add({}, "worlds", {

@@ -54,7 +54,7 @@ export default class OrangeOrchard {
     });
     this.rightArea.group.position.x = 1.5;
   }
-  createForest(area: UniversalBlock) {}
+  // createForest(area: UniversalBlock) {}
   createWorld() {
     this.createLeftArea();
     this.createCenterArea();
