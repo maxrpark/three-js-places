@@ -1,13 +1,13 @@
 import { Group } from "three";
-import { UniversalBlock } from "../../blocks";
+import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/baseWorldSources";
 
 export default class BasicWorld {
-  leftArea: UniversalBlock;
-  centerArea: UniversalBlock;
-  rightArea: UniversalBlock;
+  leftArea: StandardBlock;
+  centerArea: StandardBlock;
+  rightArea: StandardBlock;
   world: Group;
   resources: Resources;
   textures: any;
@@ -17,7 +17,7 @@ export default class BasicWorld {
     this.textures = {};
 
     this.resources.on("loaded", () => {
-      this.leftArea = new UniversalBlock({
+      this.leftArea = new StandardBlock({
         // topCastShadow: true,
         // topReceiveShadow: true,
         // bottomCastShadow: true,
@@ -31,7 +31,7 @@ export default class BasicWorld {
           normal: this.resources.items.dirtNormalTexture,
         },
       });
-      this.centerArea = new UniversalBlock({
+      this.centerArea = new StandardBlock({
         // topCastShadow: true,
         // topReceiveShadow: true,
         // bottomCastShadow: true,
@@ -46,7 +46,7 @@ export default class BasicWorld {
           normal: this.resources.items.dirtNormalTexture,
         },
       });
-      this.rightArea = new UniversalBlock({
+      this.rightArea = new StandardBlock({
         // topCastShadow: true,
         // topReceiveShadow: true,
         // bottomCastShadow: true,

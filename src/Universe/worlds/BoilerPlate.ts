@@ -1,13 +1,13 @@
 import { Group } from "three";
-import { UniversalBlock } from "../../blocks";
+import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/orchardSources";
 
 export default class OrangeOrchard {
-  leftArea: UniversalBlock;
-  centerArea: UniversalBlock;
-  rightArea: UniversalBlock;
+  leftArea: StandardBlock;
+  centerArea: StandardBlock;
+  rightArea: StandardBlock;
   world: Group;
   resources: Resources;
   textures: any;
@@ -21,7 +21,7 @@ export default class OrangeOrchard {
     });
   }
   createLeftArea() {
-    this.leftArea = new UniversalBlock({
+    this.leftArea = new StandardBlock({
       bottomColor: "#724818",
       height: 0.95,
 
@@ -33,7 +33,7 @@ export default class OrangeOrchard {
     this.leftArea.group.position.x = -1.5;
   }
   createCenterArea() {
-    this.centerArea = new UniversalBlock({
+    this.centerArea = new StandardBlock({
       bottomColor: "#724818",
 
       topTextures: {
@@ -43,7 +43,7 @@ export default class OrangeOrchard {
     });
   }
   createRightArea() {
-    this.rightArea = new UniversalBlock({
+    this.rightArea = new StandardBlock({
       bottomColor: "#724818",
       height: 0.95,
 
@@ -54,7 +54,7 @@ export default class OrangeOrchard {
     });
     this.rightArea.group.position.x = 1.5;
   }
-  // createForest(area: UniversalBlock) {}
+  // createForest(area: StandardBlock) {}
   createWorld() {
     this.createLeftArea();
     this.createCenterArea();

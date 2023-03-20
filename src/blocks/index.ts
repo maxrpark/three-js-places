@@ -1,3 +1,3 @@
-import { UniversalBlock } from "./UniversalBlock";
+import { StandardBlock } from "./StandardBlock";
 
-export { UniversalBlock };
+export { StandardBlock };

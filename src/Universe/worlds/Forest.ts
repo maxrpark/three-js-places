@@ -1,5 +1,5 @@
 import { Group } from "three";
-import { UniversalBlock } from "../../blocks";
+import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/forestSources";
@@ -7,13 +7,13 @@ import { WorldInt } from "../Universe";
 import PineThree from "./objects/PineThree";
 
 interface ForestInt extends WorldInt {
-  createForest: (area: UniversalBlock) => void;
+  createForest: (area: StandardBlock) => void;
 }
 
 export default class Forest implements ForestInt {
-  leftArea: UniversalBlock;
-  centerArea: UniversalBlock;
-  rightArea: UniversalBlock;
+  leftArea: StandardBlock;
+  centerArea: StandardBlock;
+  rightArea: StandardBlock;
 
   world: Group;
   resources: Resources;
@@ -29,7 +29,7 @@ export default class Forest implements ForestInt {
     });
   }
   createLeftArea() {
-    this.leftArea = new UniversalBlock({
+    this.leftArea = new StandardBlock({
       topReceiveShadow: true,
       topTextures: {
         color: this.resources.items.grassColorTexture,
@@ -43,7 +43,7 @@ export default class Forest implements ForestInt {
     this.leftArea.group.position.x = -1.5;
   }
   createCenterArea() {
-    this.centerArea = new UniversalBlock({
+    this.centerArea = new StandardBlock({
       topReceiveShadow: true,
 
       height: 0.5,
@@ -60,7 +60,7 @@ export default class Forest implements ForestInt {
     this.centerArea.topMaterial.roughness = 0.2;
   }
   createRightArea() {
-    this.rightArea = new UniversalBlock({
+    this.rightArea = new StandardBlock({
       topCastShadow: true,
       topReceiveShadow: true,
       bottomCastShadow: true,
@@ -77,7 +77,7 @@ export default class Forest implements ForestInt {
     });
     this.rightArea.group.position.x = 1.5;
   }
-  createForest(area: UniversalBlock) {
+  createForest(area: StandardBlock) {
     for (let i = 0; i < 3; i++) {
       const pineThree = new PineThree({
         castShadow: true,
