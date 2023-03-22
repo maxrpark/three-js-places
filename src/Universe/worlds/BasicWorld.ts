@@ -4,7 +4,7 @@ import { StandardBlock } from "../../blocks";
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/baseWorldSources";
 
-export default class BasicWorld {
+export default class SnowmanPlace {
   leftArea: StandardBlock;
   centerArea: StandardBlock;
   rightArea: StandardBlock;
@@ -17,58 +17,72 @@ export default class BasicWorld {
     this.textures = {};
 
     this.resources.on("loaded", () => {
-      this.leftArea = new StandardBlock({
-        // topCastShadow: true,
-        // topReceiveShadow: true,
-        // bottomCastShadow: true,
-        // bottomReceiveShadow: true,
-        topTextures: {
-          color: this.resources.items.grassColorTexture,
-          normal: this.resources.items.grassNormalTexture,
-        },
-        bottomTextures: {
-          color: this.resources.items.dirtColorTexture,
-          normal: this.resources.items.dirtNormalTexture,
-        },
-      });
-      this.centerArea = new StandardBlock({
-        // topCastShadow: true,
-        // topReceiveShadow: true,
-        // bottomCastShadow: true,
-        // bottomReceiveShadow: true,
-
-        topTextures: {
-          color: this.resources.items.grassColorTexture,
-          normal: this.resources.items.grassNormalTexture,
-        },
-        bottomTextures: {
-          color: this.resources.items.dirtColorTexture,
-          normal: this.resources.items.dirtNormalTexture,
-        },
-      });
-      this.rightArea = new StandardBlock({
-        // topCastShadow: true,
-        // topReceiveShadow: true,
-        // bottomCastShadow: true,
-        // bottomReceiveShadow: true,
-
-        topTextures: {
-          color: this.resources.items.grassColorTexture,
-          normal: this.resources.items.grassNormalTexture,
-        },
-        bottomTextures: {
-          color: this.resources.items.dirtColorTexture,
-          normal: this.resources.items.dirtNormalTexture,
-        },
-      });
-      this.leftArea.group.position.x = -1.5;
-      this.rightArea.group.position.x = 1.5;
-
-      this.world.add(
-        this.leftArea.group,
-        this.rightArea.group,
-        this.centerArea.group
-      );
+      this.createWorld();
     });
+  }
+  createLeftArea() {
+    this.leftArea = new StandardBlock({
+      // topCastShadow: true,
+      // topReceiveShadow: true,
+      // bottomCastShadow: true,
+      // bottomReceiveShadow: true,
+      topTextures: {
+        color: this.resources.items.grassColorTexture,
+        normal: this.resources.items.grassNormalTexture,
+      },
+      bottomTextures: {
+        color: this.resources.items.dirtColorTexture,
+        normal: this.resources.items.dirtNormalTexture,
+      },
+    });
+  }
+  createCenterArea() {
+    this.centerArea = new StandardBlock({
+      // topCastShadow: true,
+      // topReceiveShadow: true,
+      // bottomCastShadow: true,
+      // bottomReceiveShadow: true,
+
+      topTextures: {
+        color: this.resources.items.grassColorTexture,
+        normal: this.resources.items.grassNormalTexture,
+      },
+      bottomTextures: {
+        color: this.resources.items.dirtColorTexture,
+        normal: this.resources.items.dirtNormalTexture,
+      },
+    });
+    this.leftArea.group.position.x = -1.5;
+  }
+
+  createRightArea() {
+    this.rightArea = new StandardBlock({
+      // topCastShadow: true,
+      // topReceiveShadow: true,
+      // bottomCastShadow: true,
+      // bottomReceiveShadow: true,
+
+      topTextures: {
+        color: this.resources.items.grassColorTexture,
+        normal: this.resources.items.grassNormalTexture,
+      },
+      bottomTextures: {
+        color: this.resources.items.dirtColorTexture,
+        normal: this.resources.items.dirtNormalTexture,
+      },
+    });
+    this.rightArea.group.position.x = 1.5;
+  }
+
+  createWorld() {
+    this.createLeftArea();
+    this.createCenterArea();
+    this.createRightArea();
+
+    this.world.add(
+      this.leftArea.group,
+      this.rightArea.group,
+      this.centerArea.group
+    );
   }
 }

@@ -55,7 +55,7 @@ export class Environment implements EnvironmentInt {
   }
 
   setAmbientLight() {
-    this.ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    this.ambientLight = new THREE.AmbientLight("#b9d5ff", 2);
     this.scene.add(this.ambientLight);
 
     if (this.debug.active) {
@@ -76,9 +76,9 @@ export class Environment implements EnvironmentInt {
   }
 
   setDirectionalLight() {
-    this.directionalLight = new THREE.DirectionalLight("#e0ffff", 2.7);
+    this.directionalLight = new THREE.DirectionalLight("#b9d5ff", 2.2);
 
-    this.directionalLight.position.set(2.6, 1.5, 2);
+    this.directionalLight.position.set(2.6, 2, 2);
 
     this.directionalLight.shadow.mapSize.width = 512;
     this.directionalLight.shadow.mapSize.height = 512;
@@ -86,10 +86,10 @@ export class Environment implements EnvironmentInt {
     this.directionalLight.shadow.camera.near = 1;
     this.directionalLight.shadow.camera.far = 7;
 
-    this.directionalLight.shadow.camera.top = 2;
+    this.directionalLight.shadow.camera.top = 4;
     this.directionalLight.shadow.camera.bottom = -2;
-    this.directionalLight.shadow.camera.right = 2;
-    this.directionalLight.shadow.camera.left = -2;
+    this.directionalLight.shadow.camera.right = 4;
+    this.directionalLight.shadow.camera.left = -4;
 
     this.directionalLight.castShadow = this.castShadow;
 

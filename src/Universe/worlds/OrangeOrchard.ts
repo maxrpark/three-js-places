@@ -24,7 +24,6 @@ export default class OrangeOrchard {
   createLeftArea() {
     this.leftArea = new StandardBlock({
       topReceiveShadow: true,
-
       height: 0.95,
       bottomTextures: {
         color: this.resources.items.dirtColor,

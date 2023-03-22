@@ -2,22 +2,27 @@ import { Experience, ExperienceInt } from "../experience/Experience";
 import { Environment } from "./Environment";
 import { Debug } from "../experience/utils";
 import GUI from "lil-gui";
-import { BasicWorld, Forest, OrangeOrchard } from "./worlds";
+import {
+  BasicWorld,
+  Forest,
+  OrangeOrchard,
+  // SnowmanPlace
+} from "./worlds";
 import { Mesh, Group } from "three";
-import { UniversalBlock } from "../blocks";
+import { StandardBlock } from "../blocks";
 import Resources from "../experience/utils/Resources";
 
 export interface WorldInt {
-  leftArea: UniversalBlock;
-  centerArea: UniversalBlock;
-  rightArea: UniversalBlock;
+  leftArea: StandardBlock;
+  centerArea: StandardBlock;
+  rightArea: StandardBlock;
   world: Group;
   resources: Resources;
   textures: any;
-  createLeftArea: () => void;
-  createCenterArea: () => void;
-  createRightArea: () => void;
-  createWorld: () => void;
+  // createLeftArea: () => void;
+  // createCenterArea: () => void;
+  // createRightArea: () => void;
+  // createWorld: () => void;
 }
 
 export class Universe {
@@ -38,6 +43,7 @@ export class Universe {
       "Basic World": BasicWorld,
       Forest: Forest,
       "Orange Orchard": OrangeOrchard,
+      // SnowmanPlace: SnowmanPlace,
     };
 
     this.environment = new Environment({
@@ -49,15 +55,12 @@ export class Universe {
     this.selectedWorld = Forest;
     this.createNewworld();
 
-    // const debug = {
-    //   color: "#ff0000",
-    // };
-
     this.debugFolder
       .add({}, "worlds", {
         "Basic World": "Basic World",
         Forest: "Forest",
         "Orange Orchard": "Orange Orchard",
+        // SnowmanPlace: "SnowmanPlace",
       })
       .onChange((value: string) => this.destroyworld(value))
       .setValue("Orange Orchard");

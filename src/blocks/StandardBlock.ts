@@ -1,8 +1,11 @@
 import * as THREE from "three";
 import { ResourceItemsInt } from "../experience/utils/Resources";
 interface Props {
+  width?: number;
   height?: number;
   oneMesh?: boolean;
+  wireframe?: boolean;
+  segments?: number;
 
   topTextures?: ResourceItemsInt;
   topColor?: string;
@@ -13,10 +16,16 @@ interface Props {
   bottomColor?: string;
   bottomCastShadow?: boolean;
   bottomReceiveShadow?: boolean;
+  displacementScale?: number;
+  roughness?: number;
+  metalness?: number;
+  aoMapIntensity?: number;
 }
 
 interface StandardBlockInt {
   group: THREE.Group;
+  wireframe: boolean;
+  segments: number;
 
   topMesh: THREE.Mesh;
   topGeometry: THREE.BoxGeometry;
@@ -24,6 +33,7 @@ interface StandardBlockInt {
   topMeshTextures: any;
   topMeshHeight: number;
   topColor?: string;
+  geometryWidth: number;
 
   // bottom
   bottomMesh: THREE.Mesh;
@@ -43,6 +53,12 @@ interface StandardBlockInt {
   topReceiveShadow: boolean;
   bottomCastShadow: boolean;
   bottomReceiveShadow: boolean;
+  width: number;
+
+  displacementScale: number;
+  roughness: number;
+  metalness: number;
+  aoMapIntensity: number;
 
   setTopGeometry: () => void;
   setTopMaterial: () => void;
@@ -59,7 +75,8 @@ interface StandardBlockInt {
 
 export class StandardBlock implements StandardBlockInt {
   group: THREE.Group;
-
+  wireframe: boolean;
+  segments: number;
   // top
   topMesh: THREE.Mesh;
   topGeometry: THREE.BoxGeometry;
@@ -75,8 +92,10 @@ export class StandardBlock implements StandardBlockInt {
   bottomMeshHeight: number;
   bottomMeshTextures: any;
   bottomColor: string;
+  geometryWidth: number;
 
   // props
+  width: number;
   height: number;
   oneMesh: boolean;
   topTextures: ResourceItemsInt;
@@ -85,11 +104,16 @@ export class StandardBlock implements StandardBlockInt {
   topReceiveShadow: boolean;
   bottomCastShadow: boolean;
   bottomReceiveShadow: boolean;
+  displacementScale: number;
+  roughness: number;
+  metalness: number;
+  aoMapIntensity: number;
 
   constructor(props?: Props) {
     Object.assign(this, props);
     this.group = new THREE.Group();
 
+    this.geometryWidth = this.width ? this.width : 1.5;
     this.createBlock();
   }
 
@@ -103,26 +127,60 @@ export class StandardBlock implements StandardBlockInt {
       this.topMeshHeight = 1;
     }
 
-    this.topGeometry = new THREE.BoxGeometry(1.5, this.topMeshHeight, 3);
+    const segments = this.segments ? this.segments : 1;
+
+    this.topGeometry = new THREE.BoxGeometry(
+      this.geometryWidth,
+      this.topMeshHeight,
+      3,
+      segments,
+      segments,
+      segments
+    );
   }
   setTopTexture() {
     this.topMeshTextures.color = this.topTextures!.color;
-    // this.topMeshTextures.color.encoding = THREE.sRGBEncoding;
-
     this.topMeshTextures.normal = this.topTextures!.normal;
+
+    this.topGeometry.setAttribute(
+      "uv2",
+      //@ts-ignore
+      new THREE.BufferAttribute(this.topGeometry.attributes.uv.array, 2)
+    );
+
+    this.topMeshTextures.aoMap = this.topTextures.aoMap
+      ? this.topTextures!.aoMap
+      : null;
+    this.topMeshTextures.displacementMap = this.topTextures.displacementMap
+      ? this.topTextures.displacementMap
+      : null;
+    this.topMeshTextures.roughnessMap = this.topTextures.roughnessMap
+      ? this.topTextures.roughnessMap
+      : null;
   }
 
   setTopMaterial() {
     this.topMeshTextures = {
       color: null,
       normal: null,
+      aoMap: null,
+      displacementMap: null,
     };
     if (this.topTextures) this.setTopTexture();
     this.topMaterial = new THREE.MeshStandardMaterial({
       color: this.topColor ? this.topColor : "",
       map: this.topMeshTextures.color,
       normalMap: this.topMeshTextures.normal,
+      aoMap: this.topMeshTextures.aoMap,
+      aoMapIntensity: this.aoMapIntensity ? this.aoMapIntensity : 1,
+      displacementMap: this.topMeshTextures.displacementMap,
+      displacementScale: this.displacementScale
+        ? this.displacementScale
+        : 0.005,
+      roughness: this.roughness ? this.roughness : 0.005,
+      metalness: this.metalness ? this.metalness : 0,
     });
+    this.topMaterial.wireframe = this.wireframe ? this.wireframe : false;
   }
 
   setTopMesh() {
@@ -141,7 +199,11 @@ export class StandardBlock implements StandardBlockInt {
       this.bottomMeshHeight = this.height * 0.8;
     }
 
-    this.bottomGeometry = new THREE.BoxGeometry(1.5, this.bottomMeshHeight, 3);
+    this.bottomGeometry = new THREE.BoxGeometry(
+      this.geometryWidth,
+      this.bottomMeshHeight,
+      3
+    );
   }
 
   setBottomTexture() {
@@ -169,6 +231,7 @@ export class StandardBlock implements StandardBlockInt {
       map: this.bottomMeshTextures.color,
       normalMap: this.bottomMeshTextures.normal,
     });
+    this.bottomMaterial.wireframe = this.wireframe ? this.wireframe : false;
   }
 
   setBottomMesh() {

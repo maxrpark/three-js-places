@@ -2,9 +2,9 @@ import { Group } from "three";
 import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
-import sources from "../../sources/orchardSources";
+import sources from "../../sources/baseWorldSources";
 
-export default class OrangeOrchard {
+export default class SnowmanPlace {
   leftArea: StandardBlock;
   centerArea: StandardBlock;
   rightArea: StandardBlock;
@@ -22,39 +22,58 @@ export default class OrangeOrchard {
   }
   createLeftArea() {
     this.leftArea = new StandardBlock({
-      bottomColor: "#724818",
-      height: 0.95,
+      // topCastShadow: true,
+      // topReceiveShadow: true,
+      // bottomCastShadow: true,
+      // bottomReceiveShadow: true,
+      topTextures: {
+        color: this.resources.items.grassColorTexture,
+        normal: this.resources.items.grassNormalTexture,
+      },
+      bottomTextures: {
+        color: this.resources.items.dirtColorTexture,
+        normal: this.resources.items.dirtNormalTexture,
+      },
+    });
+  }
+  createCenterArea() {
+    this.centerArea = new StandardBlock({
+      // topCastShadow: true,
+      // topReceiveShadow: true,
+      // bottomCastShadow: true,
+      // bottomReceiveShadow: true,
 
       topTextures: {
         color: this.resources.items.grassColorTexture,
         normal: this.resources.items.grassNormalTexture,
+      },
+      bottomTextures: {
+        color: this.resources.items.dirtColorTexture,
+        normal: this.resources.items.dirtNormalTexture,
       },
     });
     this.leftArea.group.position.x = -1.5;
   }
-  createCenterArea() {
-    this.centerArea = new StandardBlock({
-      bottomColor: "#724818",
 
-      topTextures: {
-        color: this.resources.items.floorStoneColor,
-        normal: this.resources.items.floorStoneTexture,
-      },
-    });
-  }
   createRightArea() {
     this.rightArea = new StandardBlock({
-      bottomColor: "#724818",
-      height: 0.95,
+      // topCastShadow: true,
+      // topReceiveShadow: true,
+      // bottomCastShadow: true,
+      // bottomReceiveShadow: true,
 
       topTextures: {
         color: this.resources.items.grassColorTexture,
         normal: this.resources.items.grassNormalTexture,
       },
+      bottomTextures: {
+        color: this.resources.items.dirtColorTexture,
+        normal: this.resources.items.dirtNormalTexture,
+      },
     });
     this.rightArea.group.position.x = 1.5;
   }
-  // createForest(area: StandardBlock) {}
+
   createWorld() {
     this.createLeftArea();
     this.createCenterArea();
