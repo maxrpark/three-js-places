@@ -10,7 +10,7 @@ export default class SnowmanPlace {
   area: StandardBlock;
   world: Group;
   resources: Resources;
-  textures: any;
+  textures: MeshTextureInt;
   snowman: Snowman;
   pollLight: PollLight;
   constructor() {

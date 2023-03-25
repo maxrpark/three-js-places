@@ -58,7 +58,7 @@ export class Universe {
         SnowmanPlace: "SnowmanPlace",
       })
       .onChange((value: string) => this.destroyWorld(value))
-      .setValue("Orange Orchard");
+      .setValue("SnowmanPlace");
 
     // this.debugFolder.addColor(debug, "color");
   }

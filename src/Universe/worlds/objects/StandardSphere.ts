@@ -20,11 +20,6 @@ interface Props {
 
   meshSources?: MeshTextureInt;
 
-  // aoMapIntensity?: number;
-  // displacementScale?: number;
-  // roughness?: number;
-  // metalness?: number;
-
   receiveShadow?: boolean;
   castShadow?: boolean;
 }
@@ -33,7 +28,7 @@ export default class StandardSphere {
   mesh: Mesh;
   geometry: SphereGeometry;
   material: MeshStandardMaterial;
-  meshTextures: any;
+  meshTextures: MeshTextureInt;
 
   // props
 
@@ -71,58 +66,34 @@ export default class StandardSphere {
     this.geometry = new SphereGeometry(radius, widthSegments, heightSegments);
   }
   setTextures() {
-    this.meshTextures = {};
+    this.meshTextures = {
+      map: null,
+      normalMap: null,
+      aoMap: null,
+      displacementMap: null,
+      roughnessMap: null,
 
-    this.meshTextures.map = this.meshSources.map;
-    this.meshTextures.normal = this.meshSources.normalMap;
+      displacementScale: 0.1,
+      roughness: 1,
+      metalness: 0.0,
+
+      aoMapIntensity: 0,
+    };
+    if (!this.meshSources) return;
+    Object.assign(this.meshTextures, this.meshSources);
 
     this.geometry.setAttribute(
       "uv2",
       //@ts-ignore
       new Float32BufferAttribute(this.geometry.attributes.uv.array, 2)
     );
-
-    this.meshTextures.aoMap = this.meshSources.aoMap
-      ? this.meshSources.aoMap
-      : null;
-    this.meshTextures.displacementMap = this.meshSources.displacementMap
-      ? this.meshSources.displacementMap
-      : null;
-    this.meshTextures.roughnessMap = this.meshSources.roughnessMap
-      ? this.meshSources.roughnessMap
-      : null;
-
-    // this.meshTextures.map.encoding = sRGBEncoding;
-    // this.meshTextures.map.repeat.set(1.5, 1.5);
-    // this.meshTextures.map.wrapS = RepeatWrapping;
-    // this.meshTextures.map.wrapT = RepeatWrapping;
-    // this.meshTextures.normal.repeat.set(1.5, 1.5);
-    // this.meshTextures.normal.wrapS = RepeatWrapping;
-    // this.meshTextures.normal.wrapT = RepeatWrapping;
   }
 
   setMaterial() {
-    this.meshTextures = {
-      map: null,
-      normal: null,
-      aoMap: null,
-      displacementMap: null,
-      roughnessMap: null,
-    };
-    if (this.meshSources) this.setTextures();
+    this.setTextures();
 
     this.material = new MeshStandardMaterial({
-      map: this.meshTextures.map,
-      normalMap: this.meshTextures.normal,
-      aoMap: this.meshTextures.aoMap,
-      displacementMap: this.meshTextures.displacementMap,
-      roughnessMap: this.meshTextures.roughnessMap,
-
-      displacementScale: this.displacementScale ? this.displacementScale : 0.1,
-      roughness: this.roughness ? this.roughness : 1,
-      metalness: this.metalness ? this.metalness : 0.0,
-
-      aoMapIntensity: this.aoMapIntensity ? this.aoMapIntensity : 0,
+      ...this.meshTextures,
     });
   }
 

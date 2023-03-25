@@ -5,7 +5,7 @@ import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/forestSources";
 import { WorldInt } from "../Universe";
 import PineThree from "./objects/PineThree";
-
+import { MeshTextureInt } from "./interfaces";
 interface ForestInt extends WorldInt {
   createForest: (area: StandardBlock) => void;
 }
@@ -17,7 +17,7 @@ export default class Forest implements ForestInt {
 
   world: Group;
   resources: Resources;
-  textures: any;
+  textures: MeshTextureInt;
   pineThree: PineThree;
   constructor() {
     this.world = new Group();
