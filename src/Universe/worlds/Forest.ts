@@ -32,12 +32,12 @@ export default class Forest implements ForestInt {
     this.leftArea = new StandardBlock({
       topReceiveShadow: true,
       topTextures: {
-        color: this.resources.items.grassColorTexture,
-        normal: this.resources.items.grassNormalTexture,
+        map: this.resources.items.grassColorTexture,
+        normalMap: this.resources.items.grassNormalTexture,
       },
       bottomTextures: {
-        color: this.resources.items.dirtColorTexture,
-        normal: this.resources.items.dirtNormalTexture,
+        map: this.resources.items.dirtColorTexture,
+        normalMap: this.resources.items.dirtNormalTexture,
       },
     });
     this.leftArea.group.position.x = -1.5;
@@ -48,12 +48,12 @@ export default class Forest implements ForestInt {
 
       height: 0.5,
       topTextures: {
-        color: this.resources.items.calmWaterColorTexture,
-        normal: this.resources.items.calmWaterNormalTexture,
+        map: this.resources.items.calmWaterColorTexture,
+        normalMap: this.resources.items.calmWaterNormalTexture,
       },
       bottomTextures: {
-        color: this.resources.items.dirtColorTexture,
-        normal: this.resources.items.dirtNormalTexture,
+        map: this.resources.items.dirtColorTexture,
+        normalMap: this.resources.items.dirtNormalTexture,
       },
     });
 
@@ -67,12 +67,12 @@ export default class Forest implements ForestInt {
 
       height: 0.7,
       topTextures: {
-        color: this.resources.items.grassColorTexture,
-        normal: this.resources.items.grassNormalTexture,
+        map: this.resources.items.grassColorTexture,
+        normalMap: this.resources.items.grassNormalTexture,
       },
       bottomTextures: {
-        color: this.resources.items.dirtColorTexture,
-        normal: this.resources.items.dirtNormalTexture,
+        map: this.resources.items.dirtColorTexture,
+        normalMap: this.resources.items.dirtNormalTexture,
       },
     });
     this.rightArea.group.position.x = 1.5;

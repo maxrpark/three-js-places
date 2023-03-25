@@ -6,21 +6,21 @@ import {
   Mesh,
   MeshStandardMaterial,
   DodecahedronGeometry,
-  BufferAttribute,
+  Float32BufferAttribute,
   sRGBEncoding,
   RepeatWrapping,
   MeshLambertMaterial,
 } from "three";
-import { ResourceItemsInt } from "../../../experience/utils/Resources";
+import { MeshSources } from "../interfaces";
 
 interface Props {
   // // props
   leafColor?: String;
   thunkColor?: String;
-  leafTextures?: ResourceItemsInt;
-  thunkTextures?: ResourceItemsInt;
-  baseTextures?: ResourceItemsInt;
-  fruitTextures?: ResourceItemsInt;
+  leafTextures?: MeshSources;
+  thunkTextures?: MeshSources;
+  baseTextures?: MeshSources;
+  fruitTextures?: MeshSources;
   numberOfFruitOnThree?: number;
 
   baseCastShadow?: boolean;
@@ -63,11 +63,11 @@ export default class FruitThree {
   // // props
   leafColor: String;
   thunkColor: String;
-  leafTextures: ResourceItemsInt;
-  thunkTextures: ResourceItemsInt;
+  leafTextures: MeshSources;
+  thunkTextures: MeshSources;
   numberOfFruitOnThree: number;
-  baseTextures?: ResourceItemsInt;
-  fruitTextures: ResourceItemsInt;
+  baseTextures?: MeshSources;
+  fruitTextures: MeshSources;
 
   baseCastShadow?: boolean;
   baseReceiveShadow?: boolean;
@@ -90,8 +90,8 @@ export default class FruitThree {
     this.baseGeometry = new CircleGeometry(0.5, 23);
   }
   setBaseTexture() {
-    this.baseMeshTextures.color = this.baseTextures!.color;
-    this.baseMeshTextures.normal = this.baseTextures!.normal;
+    this.baseMeshTextures.color = this.baseTextures!.map;
+    this.baseMeshTextures.normal = this.baseTextures!.normalMap;
   }
   setBaseMaterial() {
     this.baseMaterial = new MeshStandardMaterial();
@@ -124,13 +124,13 @@ export default class FruitThree {
     this.thunkGeometry = new CylinderGeometry(0.04, 0.04, 0.4);
   }
   setThunkTexture() {
-    this.thunkMeshTextures.color = this.thunkTextures!.color;
-    this.thunkMeshTextures.normal = this.thunkTextures!.normal;
+    this.thunkMeshTextures.color = this.thunkTextures!.map;
+    this.thunkMeshTextures.normal = this.thunkTextures!.normalMap;
 
     this.thunkGeometry.setAttribute(
       "uv2",
       //@ts-ignore
-      new BufferAttribute(this.thunkGeometry.attributes.uv.array, 2)
+      new Float32BufferAttribute(this.thunkGeometry.attributes.uv.array, 2)
     );
 
     this.thunkMeshTextures.aoMap = this.thunkTextures!.aoMap;
@@ -178,8 +178,8 @@ export default class FruitThree {
     this.leafsGeometry = new DodecahedronGeometry(0.4, 0);
   }
   setLeafTexture() {
-    this.leafsMeshTextures.color = this.leafTextures!.color;
-    this.leafsMeshTextures.normal = this.leafTextures!.normal;
+    this.leafsMeshTextures.color = this.leafTextures!.map;
+    this.leafsMeshTextures.normal = this.leafTextures!.normalMap;
 
     this.leafsMeshTextures.color.encoding = sRGBEncoding;
     this.leafsMeshTextures.color.repeat.set(1.5, 1.5);
@@ -193,7 +193,7 @@ export default class FruitThree {
     this.leafsGeometry.setAttribute(
       "uv2",
       //@ts-ignore
-      new BufferAttribute(this.leafsGeometry.attributes.uv.array, 2)
+      new Float32BufferAttribute(this.leafsGeometry.attributes.uv.array, 2)
     );
 
     this.leafsMeshTextures.aoMap = this.leafTextures!.aoMap;
@@ -244,13 +244,13 @@ export default class FruitThree {
     this.fruitGeometry = new SphereGeometry(0.04, 32, 64);
   }
   setFruitTexture() {
-    this.fruitMeshTextures.color = this.fruitTextures!.color;
-    this.fruitMeshTextures.normal = this.fruitTextures!.normal;
+    this.fruitMeshTextures.color = this.fruitTextures!.map;
+    this.fruitMeshTextures.normal = this.fruitTextures!.normalMap;
 
     this.fruitGeometry.setAttribute(
       "uv2",
       //@ts-ignore
-      new BufferAttribute(this.fruitGeometry.attributes.uv.array, 2)
+      new Float32BufferAttribute(this.fruitGeometry.attributes.uv.array, 2)
     );
 
     this.fruitMeshTextures.aoMap = this.fruitTextures!.aoMap;

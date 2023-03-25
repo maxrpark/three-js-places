@@ -3,7 +3,8 @@ import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/snowManSources";
-import { Snowman } from "./objects";
+import { Snowman, PollLight } from "./objects";
+import { MeshTextureInt } from "./interfaces";
 
 export default class SnowmanPlace {
   area: StandardBlock;
@@ -11,6 +12,7 @@ export default class SnowmanPlace {
   resources: Resources;
   textures: any;
   snowman: Snowman;
+  pollLight: PollLight;
   constructor() {
     this.world = new Group();
     this.resources = new Resources(sources);
@@ -22,24 +24,21 @@ export default class SnowmanPlace {
   }
   createArea() {
     this.area = new StandardBlock({
-      // topCastShadow: true,
-      // topReceiveShadow: true,
-      // bottomCastShadow: true,
-      // bottomReceiveShadow: true,
-      // wireframe: true,
+      topReceiveShadow: true,
+
+      roughness: 1,
+      metalness: 0.07,
       segments: 10,
       width: 4.5,
       topTextures: {
-        color: this.resources.items.snowFloorColor,
-        normal: this.resources.items.snowFloorNormal,
+        map: this.resources.items.snowFloorColor,
+        normalMap: this.resources.items.snowFloorNormal,
         roughnessMap: this.resources.items.snowFloorRoughness,
         aoMap: this.resources.items.snowFloorOcclusion,
-        displacementMap: this.resources.items.snowFloorHeight,
       },
-      displacementScale: 0.0003,
       bottomTextures: {
-        color: this.resources.items.dirtColor,
-        normal: this.resources.items.dirtNormal,
+        map: this.resources.items.dirtColor,
+        normalMap: this.resources.items.dirtNormal,
       },
     });
   }
@@ -47,25 +46,36 @@ export default class SnowmanPlace {
   createSnowMan() {
     // this.snowman = new Group();
 
-    const textureData = {
-      sphereTextures: {
+    const textureData: MeshTextureInt = {
+      meshSources: {
         map: this.resources.items.snowColor,
         normalMap: this.resources.items.snowNormal,
         aoMap: this.resources.items.snowOcclusion,
-        displacementMap: this.resources.items.snowHeight,
         roughnessMap: this.resources.items.snowRoughness,
       },
-      displacementScale: 0.005,
+      metalness: 0.07,
       aoMapIntensity: 1,
     };
 
     this.snowman = new Snowman({ textureData });
+    this.snowman.group.position.set(1, 1.3, -0.6);
   }
-
+  createPollLight() {
+    this.pollLight = new PollLight();
+    this.pollLight.group.position.x = -1;
+    0.5;
+    this.pollLight.group.position.y = 1.7;
+    this.pollLight.group.position.z = -0.5;
+  }
   createWorld() {
+    this.createPollLight();
+
     this.createSnowMan();
     this.createArea();
 
-    this.world.add(this.area.group, this.snowman.group);
+    //
+    this.world.add(this.area.group, this.snowman.group, this.pollLight.group);
+
+    console.log(this.area);
   }
 }

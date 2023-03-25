@@ -2,12 +2,7 @@ import { Experience, ExperienceInt } from "../experience/Experience";
 import { Environment } from "./Environment";
 import { Debug } from "../experience/utils";
 import GUI from "lil-gui";
-import {
-  BasicWorld,
-  Forest,
-  OrangeOrchard,
-  // SnowmanPlace
-} from "./worlds";
+import { BasicWorld, Forest, OrangeOrchard, SnowmanPlace } from "./worlds";
 import { Mesh, Group } from "three";
 import { StandardBlock } from "../blocks";
 import Resources from "../experience/utils/Resources";
@@ -43,7 +38,7 @@ export class Universe {
       "Basic World": BasicWorld,
       Forest: Forest,
       "Orange Orchard": OrangeOrchard,
-      // SnowmanPlace: SnowmanPlace,
+      SnowmanPlace: SnowmanPlace,
     };
 
     this.environment = new Environment({
@@ -53,21 +48,21 @@ export class Universe {
     });
 
     this.selectedWorld = Forest;
-    this.createNewworld();
+    this.createNewWorld();
 
     this.debugFolder
       .add({}, "worlds", {
         "Basic World": "Basic World",
         Forest: "Forest",
         "Orange Orchard": "Orange Orchard",
-        // SnowmanPlace: "SnowmanPlace",
+        SnowmanPlace: "SnowmanPlace",
       })
-      .onChange((value: string) => this.destroyworld(value))
-      .setValue("Orange Orchard");
+      .onChange((value: string) => this.destroyWorld(value))
+      .setValue("SnowmanPlace");
 
     // this.debugFolder.addColor(debug, "color");
   }
-  destroyworld(value: string) {
+  destroyWorld(value: string) {
     this.selectedWorld = this.worlds[value];
     this.experience.scene.traverse((child) => {
       // Test if it's a mesh
@@ -90,10 +85,10 @@ export class Universe {
     if (this.world) this.experience.scene.remove(this.world.world);
     this.world = null;
 
-    this.createNewworld();
+    this.createNewWorld();
   }
 
-  createNewworld() {
+  createNewWorld() {
     const world = this.selectedWorld;
 
     this.world = new world();

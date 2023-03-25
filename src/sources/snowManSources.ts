@@ -67,28 +67,33 @@ export default [
   },
 
   {
-    name: "barkColor",
+    name: "pollColor",
     type: "textureLoader",
-    path: "textures/bark/color.jpg",
+    path: "textures/metal_art_1/color.jpg",
   },
   {
-    name: "barkNormal",
+    name: "pollNormal",
     type: "textureLoader",
-    path: "textures/bark/normal.jpg",
+    path: "textures/metal_art_1/normal.jpg",
   },
   {
-    name: "barkHeight",
+    name: "pollHeight",
     type: "textureLoader",
-    path: "textures/bark/height.png",
+    path: "textures/metal_art_1/height.png",
   },
   {
-    name: "barkOcclusion",
+    name: "pollOcclusion",
     type: "textureLoader",
-    path: "textures/bark/occlusion.jpg",
+    path: "textures/metal_art_1/occlusion.jpg",
   },
   {
-    name: "barkRoughness",
+    name: "pollRoughness",
     type: "textureLoader",
-    path: "textures/bark/roughness.jpg",
+    path: "textures/metal_art_1/roughness.jpg",
+  },
+  {
+    name: "pollMetalness",
+    type: "textureLoader",
+    path: "textures/metal_art_1/metalness.jpg",
   },
 ] as SourceInt[];

@@ -2,9 +2,9 @@ import {
   Mesh,
   MeshStandardMaterial,
   SphereGeometry,
-  BufferAttribute,
+  Float32BufferAttribute,
 } from "three";
-import { ResourceItemsInt } from "../../../experience/utils/Resources";
+import { MeshSources } from "../interfaces";
 
 interface Props {
   // sphere geometry
@@ -18,12 +18,15 @@ interface Props {
 
   // texture
 
-  sphereTextures?: ResourceItemsInt;
+  meshSources?: MeshSources;
 
   aoMapIntensity?: number;
   displacementScale?: number;
   roughness?: number;
   metalness?: number;
+
+  receiveShadow?: boolean;
+  castShadow?: boolean;
 }
 
 export default class StandardSphere {
@@ -45,12 +48,15 @@ export default class StandardSphere {
 
   // texture
 
-  sphereTextures: any;
+  meshSources: any;
 
   aoMapIntensity: number;
   displacementScale: number;
   roughness: number;
   metalness: number;
+
+  receiveShadow?: boolean;
+  castShadow?: boolean;
 
   constructor(props?: Props) {
     Object.assign(this, props);
@@ -67,18 +73,24 @@ export default class StandardSphere {
   setTextures() {
     this.meshTextures = {};
 
-    this.meshTextures.map = this.sphereTextures.map;
-    this.meshTextures.normal = this.sphereTextures.normalMap;
+    this.meshTextures.map = this.meshSources.map;
+    this.meshTextures.normal = this.meshSources.normalMap;
 
     this.geometry.setAttribute(
       "uv2",
       //@ts-ignore
-      new BufferAttribute(this.geometry.attributes.uv.array, 2)
+      new Float32BufferAttribute(this.geometry.attributes.uv.array, 2)
     );
 
-    this.meshTextures.aoMap = this.sphereTextures.aoMap;
-    this.meshTextures.displacementMap = this.sphereTextures.displacementMap;
-    this.meshTextures.roughnessMap = this.sphereTextures.roughnessMap;
+    this.meshTextures.aoMap = this.meshSources.aoMap
+      ? this.meshSources.aoMap
+      : null;
+    this.meshTextures.displacementMap = this.meshSources.displacementMap
+      ? this.meshSources.displacementMap
+      : null;
+    this.meshTextures.roughnessMap = this.meshSources.roughnessMap
+      ? this.meshSources.roughnessMap
+      : null;
 
     // this.meshTextures.map.encoding = sRGBEncoding;
     // this.meshTextures.map.repeat.set(1.5, 1.5);
@@ -97,7 +109,7 @@ export default class StandardSphere {
       displacementMap: null,
       roughnessMap: null,
     };
-    if (this.sphereTextures) this.setTextures();
+    if (this.meshSources) this.setTextures();
 
     this.material = new MeshStandardMaterial({
       map: this.meshTextures.map,
@@ -118,5 +130,8 @@ export default class StandardSphere {
     this.setGeometry();
     this.setMaterial();
     this.mesh = new Mesh(this.geometry, this.material);
+
+    this.mesh.receiveShadow = this.receiveShadow ? this.receiveShadow : false;
+    this.mesh.castShadow = this.castShadow ? this.castShadow : false;
   }
 }

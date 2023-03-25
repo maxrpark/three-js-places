@@ -1,12 +1,9 @@
 import * as THREE from "three";
-import { ResourceItemsInt } from "../../../experience/utils/Resources";
 
 interface Props {
   // props
   leafColor?: String;
   thunkColor?: String;
-  leafTextures?: ResourceItemsInt;
-  thunkTextures?: ResourceItemsInt;
   castShadow?: boolean;
   receiveShadow?: boolean;
 }
@@ -17,13 +14,11 @@ interface PineThreeInf extends Props {
   leafs: THREE.Mesh;
   leafGeometry: THREE.ConeGeometry;
   leafMaterial: THREE.MeshStandardMaterial;
-  leafTextures: ResourceItemsInt;
 
   // thunk
   thunk: THREE.Mesh;
   thunkGeometry: THREE.BoxGeometry;
   thunkMaterial: THREE.MeshStandardMaterial;
-  thunkTextures: ResourceItemsInt;
 
   // props
   castShadow: boolean;
@@ -49,13 +44,11 @@ export default class PineThree implements PineThreeInf {
   leafs: THREE.Mesh;
   leafsGeometry: THREE.ConeGeometry;
   leafsMaterial: THREE.MeshStandardMaterial;
-  leafsTextures: ResourceItemsInt;
 
   // thunk
   thunk: THREE.Mesh;
   thunkGeometry: THREE.BoxGeometry;
   thunkMaterial: THREE.MeshStandardMaterial;
-  thunkTextures: ResourceItemsInt;
 
   // props
   castShadow: boolean;
@@ -69,7 +62,6 @@ export default class PineThree implements PineThreeInf {
   }
   leafGeometry: THREE.ConeGeometry;
   leafMaterial: THREE.MeshStandardMaterial;
-  leafTextures: ResourceItemsInt;
   setLeafsTexture: () => void;
 
   setLeafsGeometry() {

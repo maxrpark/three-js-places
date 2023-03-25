@@ -15,6 +15,21 @@ export default [
     type: "textureLoader",
     path: "textures/floorStones/normal.jpg",
   },
+  {
+    name: "floorStoneHeight",
+    type: "textureLoader",
+    path: "textures/floorStones/height.png",
+  },
+  {
+    name: "floorStoneOcclusion",
+    type: "textureLoader",
+    path: "textures/floorStones/occlusion.jpg",
+  },
+  {
+    name: "floorStonerRoughness",
+    type: "textureLoader",
+    path: "textures/floorStones/roughness.jpg",
+  },
 
   {
     name: "grassColor",

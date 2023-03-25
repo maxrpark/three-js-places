@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { ResourceItemsInt } from "../experience/utils/Resources";
+import { MeshSources } from "../Universe/worlds/interfaces";
 interface Props {
   width?: number;
   height?: number;
@@ -7,12 +7,12 @@ interface Props {
   wireframe?: boolean;
   segments?: number;
 
-  topTextures?: ResourceItemsInt;
+  topTextures?: MeshSources;
   topColor?: string;
   topCastShadow?: boolean;
   topReceiveShadow?: boolean;
 
-  bottomTextures?: ResourceItemsInt;
+  bottomTextures?: MeshSources;
   bottomColor?: string;
   bottomCastShadow?: boolean;
   bottomReceiveShadow?: boolean;
@@ -46,8 +46,8 @@ interface StandardBlockInt {
   // props
   height: number;
   oneMesh: boolean;
-  topTextures: ResourceItemsInt;
-  bottomTextures: ResourceItemsInt;
+  topTextures: MeshSources;
+  bottomTextures: MeshSources;
 
   topCastShadow: boolean;
   topReceiveShadow: boolean;
@@ -98,8 +98,8 @@ export class StandardBlock implements StandardBlockInt {
   width: number;
   height: number;
   oneMesh: boolean;
-  topTextures: ResourceItemsInt;
-  bottomTextures: ResourceItemsInt;
+  topTextures: MeshSources;
+  bottomTextures: MeshSources;
   topCastShadow: boolean;
   topReceiveShadow: boolean;
   bottomCastShadow: boolean;
@@ -139,24 +139,36 @@ export class StandardBlock implements StandardBlockInt {
     );
   }
   setTopTexture() {
-    this.topMeshTextures.color = this.topTextures!.color;
-    this.topMeshTextures.normal = this.topTextures!.normal;
+    this.topMeshTextures.color = this.topTextures!.map;
+    this.topMeshTextures.normal = this.topTextures!.normalMap;
 
     this.topGeometry.setAttribute(
       "uv2",
       //@ts-ignore
-      new THREE.BufferAttribute(this.topGeometry.attributes.uv.array, 2)
+      new THREE.Float32BufferAttribute(this.topGeometry.attributes.uv.array, 2)
     );
 
     this.topMeshTextures.aoMap = this.topTextures.aoMap
       ? this.topTextures!.aoMap
       : null;
+
     this.topMeshTextures.displacementMap = this.topTextures.displacementMap
       ? this.topTextures.displacementMap
       : null;
     this.topMeshTextures.roughnessMap = this.topTextures.roughnessMap
       ? this.topTextures.roughnessMap
       : null;
+
+    if (this.topMeshTextures.aoMap) {
+      this.topGeometry.setAttribute(
+        "uv2",
+        new THREE.Float32BufferAttribute(
+          //@ts-ignore
+          this.topGeometry.attributes.uv.array,
+          2
+        )
+      );
+    }
   }
 
   setTopMaterial() {
@@ -177,10 +189,11 @@ export class StandardBlock implements StandardBlockInt {
       displacementScale: this.displacementScale
         ? this.displacementScale
         : 0.005,
-      roughness: this.roughness ? this.roughness : 0.005,
-      metalness: this.metalness ? this.metalness : 0,
+      roughness: this.roughness ? this.roughness : 1,
+      metalness: this.metalness ? this.metalness : 0.0,
     });
     this.topMaterial.wireframe = this.wireframe ? this.wireframe : false;
+    // this.topMaterial.wireframe = true;
   }
 
   setTopMesh() {
@@ -207,13 +220,13 @@ export class StandardBlock implements StandardBlockInt {
   }
 
   setBottomTexture() {
-    this.bottomMeshTextures.color = this.bottomTextures!.color;
+    this.bottomMeshTextures.color = this.bottomTextures!.map;
     // this.bottomMeshTextures.color.encoding = THREE.sRGBEncoding;
     // this.bottomMeshTextures.color.repeat.set(1.5, 1.5);
     // this.bottomMeshTextures.color.wrapS = THREE.RepeatWrapping;
     // this.bottomMeshTextures.color.wrapT = THREE.RepeatWrapping;
 
-    this.bottomMeshTextures.normal = this.bottomTextures!.normal;
+    this.bottomMeshTextures.normal = this.bottomTextures!.normalMap;
     // this.bottomMeshTextures.normal.repeat.set(1.5, 1.5);
     // this.bottomMeshTextures.normal.wrapS = THREE.RepeatWrapping;
     // this.bottomMeshTextures.normal.wrapT = THREE.RepeatWrapping;

@@ -80,11 +80,11 @@ export class Environment implements EnvironmentInt {
 
     this.directionalLight.position.set(2.6, 2, 2);
 
-    this.directionalLight.shadow.mapSize.width = 512;
-    this.directionalLight.shadow.mapSize.height = 512;
+    this.directionalLight.shadow.mapSize.width = 1024;
+    this.directionalLight.shadow.mapSize.height = 1024;
 
     this.directionalLight.shadow.camera.near = 1;
-    this.directionalLight.shadow.camera.far = 7;
+    this.directionalLight.shadow.camera.far = 13;
 
     this.directionalLight.shadow.camera.top = 4;
     this.directionalLight.shadow.camera.bottom = -2;

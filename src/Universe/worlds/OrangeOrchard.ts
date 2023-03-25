@@ -26,12 +26,12 @@ export default class OrangeOrchard {
       topReceiveShadow: true,
       height: 0.95,
       bottomTextures: {
-        color: this.resources.items.dirtColor,
-        normal: this.resources.items.dirtNormal,
+        map: this.resources.items.dirtColor,
+        normalMap: this.resources.items.dirtNormal,
       },
       topTextures: {
-        color: this.resources.items.grassColor,
-        normal: this.resources.items.grassNormal,
+        map: this.resources.items.grassColor,
+        normalMap: this.resources.items.grassNormal,
       },
     });
     this.leftArea.group.position.x = -1.5;
@@ -39,15 +39,16 @@ export default class OrangeOrchard {
   createCenterArea() {
     this.centerArea = new StandardBlock({
       topReceiveShadow: true,
-
       bottomTextures: {
-        color: this.resources.items.dirtColor,
-        normal: this.resources.items.dirtNormal,
+        map: this.resources.items.dirtColor,
+        normalMap: this.resources.items.dirtNormal,
       },
       topTextures: {
-        color: this.resources.items.floorStoneColor,
-        normal: this.resources.items.floorStoneNormal,
+        map: this.resources.items.floorStoneColor,
+        normalMap: this.resources.items.floorStoneNormal,
+        aoMap: this.resources.items.floorStoneOcclusion,
       },
+      aoMapIntensity: 1.7,
     });
   }
   createRightArea() {
@@ -55,12 +56,12 @@ export default class OrangeOrchard {
       height: 0.95,
       topReceiveShadow: true,
       bottomTextures: {
-        color: this.resources.items.dirtColor,
-        normal: this.resources.items.dirtNormal,
+        map: this.resources.items.dirtColor,
+        normalMap: this.resources.items.dirtNormal,
       },
       topTextures: {
-        color: this.resources.items.grassColor,
-        normal: this.resources.items.grassNormal,
+        map: this.resources.items.grassColor,
+        normalMap: this.resources.items.grassNormal,
       },
     });
     this.rightArea.group.position.x = 1.5;
@@ -82,25 +83,25 @@ export default class OrangeOrchard {
       fruitReceiveShadow: true,
 
       baseTextures: {
-        color: this.resources.items.dirtColor,
-        normal: this.resources.items.dirtNormal,
+        map: this.resources.items.dirtColor,
+        normalMap: this.resources.items.dirtNormal,
       },
       thunkTextures: {
-        color: this.resources.items.barkColor,
-        normal: this.resources.items.barkNormal,
+        map: this.resources.items.barkColor,
+        normalMap: this.resources.items.barkNormal,
         aoMap: this.resources.items.barkOcclusion,
         displacementMap: this.resources.items.barkHeight,
         roughnessMap: this.resources.items.barkRoughness,
       },
       fruitTextures: {
-        color: this.resources.items.orangeColor,
-        normal: this.resources.items.orangeNormal,
+        map: this.resources.items.orangeColor,
+        normalMap: this.resources.items.orangeNormal,
         aoMap: this.resources.items.orangeOcclusion,
         displacementMap: this.resources.items.orangeHeight,
       },
       leafTextures: {
-        color: this.resources.items.cloverColor,
-        normal: this.resources.items.cloverNormal,
+        map: this.resources.items.cloverColor,
+        normalMap: this.resources.items.cloverNormal,
         aoMap: this.resources.items.cloverOcclusion,
         displacementMap: this.resources.items.cloverHeight,
         roughnessMap: this.resources.items.cloverRoughness,

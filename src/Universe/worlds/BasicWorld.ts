@@ -27,12 +27,12 @@ export default class SnowmanPlace {
       // bottomCastShadow: true,
       // bottomReceiveShadow: true,
       topTextures: {
-        color: this.resources.items.grassColorTexture,
-        normal: this.resources.items.grassNormalTexture,
+        map: this.resources.items.grassColorTexture,
+        normalMap: this.resources.items.grassNormalTexture,
       },
       bottomTextures: {
-        color: this.resources.items.dirtColorTexture,
-        normal: this.resources.items.dirtNormalTexture,
+        map: this.resources.items.dirtColorTexture,
+        normalMap: this.resources.items.dirtNormalTexture,
       },
     });
   }
@@ -44,12 +44,12 @@ export default class SnowmanPlace {
       // bottomReceiveShadow: true,
 
       topTextures: {
-        color: this.resources.items.grassColorTexture,
-        normal: this.resources.items.grassNormalTexture,
+        map: this.resources.items.grassColorTexture,
+        normalMap: this.resources.items.grassNormalTexture,
       },
       bottomTextures: {
-        color: this.resources.items.dirtColorTexture,
-        normal: this.resources.items.dirtNormalTexture,
+        map: this.resources.items.dirtColorTexture,
+        normalMap: this.resources.items.dirtNormalTexture,
       },
     });
     this.leftArea.group.position.x = -1.5;
@@ -57,18 +57,13 @@ export default class SnowmanPlace {
 
   createRightArea() {
     this.rightArea = new StandardBlock({
-      // topCastShadow: true,
-      // topReceiveShadow: true,
-      // bottomCastShadow: true,
-      // bottomReceiveShadow: true,
-
       topTextures: {
-        color: this.resources.items.grassColorTexture,
-        normal: this.resources.items.grassNormalTexture,
+        map: this.resources.items.grassColorTexture,
+        normalMap: this.resources.items.grassNormalTexture,
       },
       bottomTextures: {
-        color: this.resources.items.dirtColorTexture,
-        normal: this.resources.items.dirtNormalTexture,
+        map: this.resources.items.dirtColorTexture,
+        normalMap: this.resources.items.dirtNormalTexture,
       },
     });
     this.rightArea.group.position.x = 1.5;
