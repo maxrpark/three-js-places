@@ -22,10 +22,6 @@ export default class SnowmanPlace {
   }
   createLeftArea() {
     this.leftArea = new StandardBlock({
-      // topCastShadow: true,
-      // topReceiveShadow: true,
-      // bottomCastShadow: true,
-      // bottomReceiveShadow: true,
       topTextures: {
         map: this.resources.items.grassColorTexture,
         normalMap: this.resources.items.grassNormalTexture,
@@ -38,11 +34,6 @@ export default class SnowmanPlace {
   }
   createCenterArea() {
     this.centerArea = new StandardBlock({
-      // topCastShadow: true,
-      // topReceiveShadow: true,
-      // bottomCastShadow: true,
-      // bottomReceiveShadow: true,
-
       topTextures: {
         map: this.resources.items.grassColorTexture,
         normalMap: this.resources.items.grassNormalTexture,

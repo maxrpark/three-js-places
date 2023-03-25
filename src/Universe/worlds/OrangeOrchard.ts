@@ -47,8 +47,8 @@ export default class OrangeOrchard {
         map: this.resources.items.floorStoneColor,
         normalMap: this.resources.items.floorStoneNormal,
         aoMap: this.resources.items.floorStoneOcclusion,
+        aoMapIntensity: 1.7,
       },
-      aoMapIntensity: 1.7,
     });
   }
   createRightArea() {

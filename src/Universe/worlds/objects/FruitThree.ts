@@ -11,16 +11,16 @@ import {
   RepeatWrapping,
   MeshLambertMaterial,
 } from "three";
-import { MeshSources } from "../interfaces";
+import { MeshTextureInt } from "../interfaces";
 
 interface Props {
   // // props
   leafColor?: String;
   thunkColor?: String;
-  leafTextures?: MeshSources;
-  thunkTextures?: MeshSources;
-  baseTextures?: MeshSources;
-  fruitTextures?: MeshSources;
+  leafTextures?: MeshTextureInt;
+  thunkTextures?: MeshTextureInt;
+  baseTextures?: MeshTextureInt;
+  fruitTextures?: MeshTextureInt;
   numberOfFruitOnThree?: number;
 
   baseCastShadow?: boolean;
@@ -42,32 +42,32 @@ export default class FruitThree {
   base: Mesh;
   baseGeometry: CircleGeometry;
   baseMaterial: MeshStandardMaterial;
-  baseMeshTextures: any;
+  baseMeshTextures: MeshTextureInt;
 
   thunk: Mesh;
   thunkGeometry: CylinderGeometry;
   thunkMaterial: MeshStandardMaterial;
-  thunkMeshTextures: any;
+  thunkMeshTextures: MeshTextureInt;
   topArea: Group;
 
   leafs: Mesh;
   leafsGeometry: DodecahedronGeometry;
   leafsMaterial: MeshStandardMaterial;
-  leafsMeshTextures: any;
+  leafsMeshTextures: MeshTextureInt;
 
   fruit: Mesh;
   fruitGeometry: SphereGeometry;
   fruitMaterial: MeshLambertMaterial;
-  fruitMeshTextures: any;
+  fruitMeshTextures: MeshTextureInt;
 
   // // props
   leafColor: String;
   thunkColor: String;
-  leafTextures: MeshSources;
-  thunkTextures: MeshSources;
+  leafTextures: MeshTextureInt;
+  thunkTextures: MeshTextureInt;
   numberOfFruitOnThree: number;
-  baseTextures?: MeshSources;
-  fruitTextures: MeshSources;
+  baseTextures?: MeshTextureInt;
+  fruitTextures: MeshTextureInt;
 
   baseCastShadow?: boolean;
   baseReceiveShadow?: boolean;
@@ -90,21 +90,21 @@ export default class FruitThree {
     this.baseGeometry = new CircleGeometry(0.5, 23);
   }
   setBaseTexture() {
-    this.baseMeshTextures.color = this.baseTextures!.map;
-    this.baseMeshTextures.normal = this.baseTextures!.normalMap;
+    this.baseMeshTextures.map = this.baseTextures!.map;
+    this.baseMeshTextures.normalMap = this.baseTextures!.normalMap;
   }
   setBaseMaterial() {
     this.baseMaterial = new MeshStandardMaterial();
 
     this.baseMeshTextures = {
-      color: null,
-      normal: null,
+      map: null,
+      normalMap: null,
     };
     if (this.baseTextures) this.setBaseTexture();
 
     this.baseMaterial = new MeshStandardMaterial({
-      map: this.baseMeshTextures.color,
-      normalMap: this.baseMeshTextures.normal,
+      map: this.baseMeshTextures.map,
+      normalMap: this.baseMeshTextures.normalMap,
     });
   }
 
@@ -124,38 +124,30 @@ export default class FruitThree {
     this.thunkGeometry = new CylinderGeometry(0.04, 0.04, 0.4);
   }
   setThunkTexture() {
-    this.thunkMeshTextures.color = this.thunkTextures!.map;
-    this.thunkMeshTextures.normal = this.thunkTextures!.normalMap;
+    this.thunkMeshTextures = {
+      map: null,
+      normalMap: null,
+      aoMap: null,
+      displacementMap: null,
+      roughnessMap: null,
+    };
+    if (!this.thunkMeshTextures) return;
+
+    Object.assign(this.thunkMeshTextures, this.thunkTextures);
 
     this.thunkGeometry.setAttribute(
       "uv2",
       //@ts-ignore
       new Float32BufferAttribute(this.thunkGeometry.attributes.uv.array, 2)
     );
-
-    this.thunkMeshTextures.aoMap = this.thunkTextures!.aoMap;
-    this.thunkMeshTextures.displacementMap =
-      this.thunkTextures!.displacementMap;
-    this.thunkMeshTextures.roughnessMap = this.thunkTextures!.roughnessMap;
   }
   setThunkMaterial() {
-    this.thunkMeshTextures = {
-      color: null,
-      normal: null,
-      aoMap: null,
-      displacementMap: null,
-      roughnessMap: null,
-    };
-    if (this.thunkMeshTextures) this.setThunkTexture();
+    this.setThunkTexture();
 
     this.thunkMaterial = new MeshStandardMaterial({
-      map: this.thunkMeshTextures.color,
-      normalMap: this.thunkMeshTextures.normal,
-      aoMap: this.thunkMeshTextures.aoMap,
+      ...this.thunkMeshTextures,
       aoMapIntensity: 1,
-      displacementMap: this.thunkMeshTextures.displacementMap,
       displacementScale: 0.005,
-      roughnessMap: this.thunkMeshTextures.roughnessMap,
       roughness: 0.02,
       metalness: 0,
     });
@@ -178,54 +170,47 @@ export default class FruitThree {
     this.leafsGeometry = new DodecahedronGeometry(0.4, 0);
   }
   setLeafTexture() {
-    this.leafsMeshTextures.color = this.leafTextures!.map;
-    this.leafsMeshTextures.normal = this.leafTextures!.normalMap;
+    this.leafsMeshTextures = {
+      map: null,
+      normalMap: null,
+      aoMap: null,
+      displacementMap: null,
+      roughnessMap: null,
+      displacementScale: 0.0005,
+      aoMapIntensity: 1,
+      roughness: 0.002,
+      metalness: 0,
+    };
 
-    this.leafsMeshTextures.color.encoding = sRGBEncoding;
-    this.leafsMeshTextures.color.repeat.set(1.5, 1.5);
-    this.leafsMeshTextures.color.wrapS = RepeatWrapping;
-    this.leafsMeshTextures.color.wrapT = RepeatWrapping;
+    if (!this.leafTextures) return;
 
-    this.leafsMeshTextures.normal.repeat.set(1.5, 1.5);
-    this.leafsMeshTextures.normal.wrapS = RepeatWrapping;
-    this.leafsMeshTextures.normal.wrapT = RepeatWrapping;
+    Object.assign(this.leafsMeshTextures, this.leafTextures);
+
+    this.leafsMeshTextures.map.encoding = sRGBEncoding;
+    this.leafsMeshTextures.map.repeat.set(1.5, 1.5);
+    this.leafsMeshTextures.map.wrapS = RepeatWrapping;
+    this.leafsMeshTextures.map.wrapT = RepeatWrapping;
+
+    this.leafsMeshTextures.normalMap.repeat.set(1.5, 1.5);
+    this.leafsMeshTextures.normalMap.wrapS = RepeatWrapping;
+    this.leafsMeshTextures.normalMap.wrapT = RepeatWrapping;
 
     this.leafsGeometry.setAttribute(
       "uv2",
       //@ts-ignore
       new Float32BufferAttribute(this.leafsGeometry.attributes.uv.array, 2)
     );
-
-    this.leafsMeshTextures.aoMap = this.leafTextures!.aoMap;
-    this.leafsMeshTextures.displacementMap = this.leafTextures!.displacementMap;
-    this.leafsMeshTextures.roughnessMap = this.leafTextures!.roughnessMap;
   }
   setLeafMaterial() {
+    this.setLeafTexture();
+
     const color = this.leafColor
       ? (this.leafColor as THREE.ColorRepresentation)
       : "";
 
-    this.leafsMeshTextures = {
-      color: null,
-      normal: null,
-      aoMap: null,
-      displacementMap: null,
-      roughnessMap: null,
-    };
-
-    if (this.leafTextures) this.setLeafTexture();
-
     this.leafsMaterial = new MeshStandardMaterial({
       color,
-      map: this.leafsMeshTextures.color,
-      normalMap: this.leafsMeshTextures.normal,
-      aoMap: this.leafsMeshTextures.aoMap,
-      aoMapIntensity: 1,
-      displacementMap: this.leafsMeshTextures.displacementMap,
-      displacementScale: 0.0005,
-      roughnessMap: this.leafsMeshTextures.roughnessMap,
-      roughness: 0.002,
-      metalness: 0,
+      ...this.leafsMeshTextures,
     });
   }
 
@@ -244,35 +229,28 @@ export default class FruitThree {
     this.fruitGeometry = new SphereGeometry(0.04, 32, 64);
   }
   setFruitTexture() {
-    this.fruitMeshTextures.color = this.fruitTextures!.map;
-    this.fruitMeshTextures.normal = this.fruitTextures!.normalMap;
+    this.fruitMeshTextures = {
+      map: null,
+      normalMap: null,
+      aoMap: null,
+      displacementMap: null,
+      aoMapIntensity: 1,
+      displacementScale: 0.05,
+    };
+    if (!this.fruitMeshTextures) return;
+    Object.assign(this.fruitMeshTextures, this.fruitTextures);
 
     this.fruitGeometry.setAttribute(
       "uv2",
       //@ts-ignore
       new Float32BufferAttribute(this.fruitGeometry.attributes.uv.array, 2)
     );
-
-    this.fruitMeshTextures.aoMap = this.fruitTextures!.aoMap;
-    this.fruitMeshTextures.displacementMap =
-      this.fruitTextures!.displacementMap;
   }
   setFruitMaterial() {
-    this.fruitMeshTextures = {
-      color: null,
-      normal: null,
-      aoMap: null,
-      displacementMap: null,
-    };
-    if (this.fruitMeshTextures) this.setFruitTexture();
+    this.setFruitTexture();
 
     this.fruitMaterial = new MeshLambertMaterial({
-      map: this.fruitMeshTextures.color,
-      normalMap: this.fruitMeshTextures.normal,
-      aoMap: this.fruitMeshTextures.aoMap,
-      aoMapIntensity: 1,
-      displacementMap: this.fruitMeshTextures.displacementMap,
-      displacementScale: 0.05,
+      ...this.fruitMeshTextures,
     });
   }
 

@@ -8,8 +8,11 @@ import {
   CylinderGeometry,
   // PointLightHelper,
 } from "three";
+import { MeshTextureInt } from "../interfaces";
 
-interface Props {}
+interface Props {
+  pollTexture: MeshTextureInt;
+}
 
 export default class PollLight {
   // experience: Experience;
@@ -18,12 +21,16 @@ export default class PollLight {
   poll: Mesh;
   pollGeometry: BoxGeometry;
   pollMaterial: MeshStandardMaterial;
+  pollMeshTexture: any;
 
   bell: Mesh;
   bellGeometry: CylinderGeometry;
   bellMaterial: MeshStandardMaterial;
 
   light: PointLight;
+
+  // Props
+  pollTexture: MeshTextureInt;
 
   constructor(props?: Props) {
     // this.experience = new Experience();
@@ -41,6 +48,17 @@ export default class PollLight {
   }
   setPollGeometry() {
     this.pollGeometry = new BoxGeometry(0.12, 1.5, 0.12);
+  }
+  setPollTexture() {
+    this.pollMeshTexture = {
+      map: this.pollTexture.map,
+      normalMap: this.pollTexture.normalMap,
+      aoMap: this.pollTexture.aoMap,
+      aoMapIntensity: this.pollTexture.aoMapIntensity,
+      roughnessMap: this.pollTexture.roughnessMap,
+      displacementMap: this.pollTexture.displacementMap,
+      displacementScale: this.pollTexture.displacementScale,
+    };
   }
   setPollMaterial() {
     this.pollMaterial = new MeshStandardMaterial();

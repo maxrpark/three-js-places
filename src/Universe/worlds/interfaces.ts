@@ -1,4 +1,4 @@
-export interface MeshSources {
+export interface MeshTextureInt {
   color?: any;
   map?: any;
   normalMap?: any;
@@ -7,10 +7,6 @@ export interface MeshSources {
   roughnessMap?: any;
   displacementMap?: any;
   displacementScale?: any;
-}
-export interface MeshTextureInt {
-  meshSources: MeshSources;
   roughness?: number;
   metalness?: number;
-  aoMapIntensity?: number;
 }

@@ -26,8 +26,6 @@ export default class SnowmanPlace {
     this.area = new StandardBlock({
       topReceiveShadow: true,
 
-      roughness: 1,
-      metalness: 0.07,
       segments: 10,
       width: 4.5,
       topTextures: {
@@ -35,10 +33,14 @@ export default class SnowmanPlace {
         normalMap: this.resources.items.snowFloorNormal,
         roughnessMap: this.resources.items.snowFloorRoughness,
         aoMap: this.resources.items.snowFloorOcclusion,
+        roughness: 1,
+        metalness: 0.07,
       },
       bottomTextures: {
         map: this.resources.items.dirtColor,
         normalMap: this.resources.items.dirtNormal,
+        roughness: 1,
+        metalness: 0.07,
       },
     });
   }
@@ -47,12 +49,10 @@ export default class SnowmanPlace {
     // this.snowman = new Group();
 
     const textureData: MeshTextureInt = {
-      meshSources: {
-        map: this.resources.items.snowColor,
-        normalMap: this.resources.items.snowNormal,
-        aoMap: this.resources.items.snowOcclusion,
-        roughnessMap: this.resources.items.snowRoughness,
-      },
+      map: this.resources.items.snowColor,
+      normalMap: this.resources.items.snowNormal,
+      aoMap: this.resources.items.snowOcclusion,
+      roughnessMap: this.resources.items.snowRoughness,
       metalness: 0.07,
       aoMapIntensity: 1,
     };

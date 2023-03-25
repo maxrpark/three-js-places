@@ -4,7 +4,7 @@ import {
   SphereGeometry,
   Float32BufferAttribute,
 } from "three";
-import { MeshSources } from "../interfaces";
+import { MeshTextureInt } from "../interfaces";
 
 interface Props {
   // sphere geometry
@@ -18,12 +18,12 @@ interface Props {
 
   // texture
 
-  meshSources?: MeshSources;
+  meshSources?: MeshTextureInt;
 
-  aoMapIntensity?: number;
-  displacementScale?: number;
-  roughness?: number;
-  metalness?: number;
+  // aoMapIntensity?: number;
+  // displacementScale?: number;
+  // roughness?: number;
+  // metalness?: number;
 
   receiveShadow?: boolean;
   castShadow?: boolean;

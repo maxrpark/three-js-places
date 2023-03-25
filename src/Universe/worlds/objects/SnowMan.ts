@@ -27,7 +27,7 @@ export default class Snowman {
       radius: 0.4,
       widthSegments: 32,
       heightSegments: 16,
-      ...this.textureData,
+      meshSources: this.textureData,
     });
   }
   setHead() {
@@ -38,7 +38,7 @@ export default class Snowman {
       radius: 0.15,
       widthSegments: 32,
       heightSegments: 16,
-      ...this.textureData,
+      meshSources: this.textureData,
     });
 
     const noseHeight = 0.09;
