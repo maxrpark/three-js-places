@@ -6,12 +6,18 @@ import {
   Mesh,
   MeshStandardMaterial,
   CylinderGeometry,
+  sRGBEncoding,
+  RepeatWrapping,
+  Float32BufferAttribute,
+  MeshMatcapMaterial,
   // PointLightHelper,
 } from "three";
 import { MeshTextureInt } from "../interfaces";
 
 interface Props {
-  pollTexture: MeshTextureInt;
+  pollTextures: MeshTextureInt;
+  bellMapCap: any;
+  // bellTextures: MeshTextureInt;
 }
 
 export default class PollLight {
@@ -21,22 +27,27 @@ export default class PollLight {
   poll: Mesh;
   pollGeometry: BoxGeometry;
   pollMaterial: MeshStandardMaterial;
-  pollMeshTexture: any;
+  pollMeshTexture: MeshTextureInt;
 
   bell: Mesh;
   bellGeometry: CylinderGeometry;
-  bellMaterial: MeshStandardMaterial;
+  bellMaterial: MeshMatcapMaterial;
+  // bellTexture: MeshTextureInt;
 
   light: PointLight;
 
   // Props
-  pollTexture: MeshTextureInt;
+  pollTextures: MeshTextureInt;
+  bellMapCap: any;
+  // bellTextures: MeshTextureInt;
 
   constructor(props?: Props) {
     // this.experience = new Experience();
+
+    Object.assign(this, props);
+
     this.group = new Group();
     this.createPollLight();
-    Object.assign(this, props);
   }
 
   createLight() {
@@ -48,20 +59,50 @@ export default class PollLight {
   }
   setPollGeometry() {
     this.pollGeometry = new BoxGeometry(0.12, 1.5, 0.12);
+    // this.pollGeometry = new BoxGeometry(1, 1.5, 0.12);
   }
   setPollTexture() {
     this.pollMeshTexture = {
-      map: this.pollTexture.map,
-      normalMap: this.pollTexture.normalMap,
-      aoMap: this.pollTexture.aoMap,
-      aoMapIntensity: this.pollTexture.aoMapIntensity,
-      roughnessMap: this.pollTexture.roughnessMap,
-      displacementMap: this.pollTexture.displacementMap,
-      displacementScale: this.pollTexture.displacementScale,
+      map: null,
+      normalMap: null,
+      aoMap: null,
+      aoMapIntensity: 1,
+      roughnessMap: null,
+      displacementMap: null,
+      displacementScale: 0,
     };
+
+    if (!this.pollTextures) return;
+
+    Object.assign(this.pollMeshTexture, this.pollTextures);
+
+    const repeatX = 1;
+    const repeatY = 15;
+
+    this.pollMeshTexture.map.encoding = sRGBEncoding;
+    this.pollMeshTexture.map.repeat.set(repeatX, repeatY);
+    this.pollMeshTexture.map.wrapS = RepeatWrapping;
+    this.pollMeshTexture.map.wrapT = RepeatWrapping;
+
+    this.pollMeshTexture.normalMap.repeat.set(repeatX, repeatY);
+    this.pollMeshTexture.normalMap.wrapS = RepeatWrapping;
+    this.pollMeshTexture.normalMap.wrapT = RepeatWrapping;
+
+    this.pollMeshTexture.aoMap.repeat.set(repeatX, repeatY);
+    this.pollMeshTexture.aoMap.wrapS = RepeatWrapping;
+    this.pollMeshTexture.aoMap.wrapT = RepeatWrapping;
+
+    this.pollGeometry.setAttribute(
+      "uv2",
+      //@ts-ignore
+      new Float32BufferAttribute(this.pollGeometry.attributes.uv.array, 2)
+    );
   }
   setPollMaterial() {
-    this.pollMaterial = new MeshStandardMaterial();
+    this.setPollTexture();
+    this.pollMaterial = new MeshStandardMaterial({
+      ...this.pollMeshTexture,
+    });
   }
   createPoll() {
     this.setPollGeometry();
@@ -73,8 +114,9 @@ export default class PollLight {
   setBellGeometry() {
     this.bellGeometry = new CylinderGeometry(0.15, 0.4, 0.45, 6);
   }
+
   setBellMaterial() {
-    this.bellMaterial = new MeshStandardMaterial({ color: 0xffff00 });
+    this.bellMaterial = new MeshMatcapMaterial({ matcap: this.bellMapCap });
   }
   createBell() {
     this.setBellGeometry();

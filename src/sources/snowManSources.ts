@@ -96,4 +96,9 @@ export default [
     type: "textureLoader",
     path: "textures/metal_art_1/metalness.jpg",
   },
+  {
+    name: "bellMapCap",
+    type: "textureLoader",
+    path: "textures/mapCaps/15100F_241D1B_292424_2C2C27-512px.png",
+  },
 ] as SourceInt[];

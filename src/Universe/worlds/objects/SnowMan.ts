@@ -1,14 +1,14 @@
 import { Group, CylinderGeometry, MeshBasicMaterial, Mesh } from "three";
-
+import { MeshTextureInt } from "../interfaces";
 import { StandardSphere } from "./";
 interface Props {
-  textureData?: any;
+  textureData?: MeshTextureInt;
   receiveShadow?: boolean;
   castShadow?: boolean;
 }
 export default class Snowman {
   group: Group;
-  textureData: any;
+  textureData: MeshTextureInt;
   textures: any;
   snowman: Group;
   body: StandardSphere;
@@ -70,7 +70,7 @@ export default class Snowman {
     eyeTwo.rotation.x = Math.PI / 2;
     eyeTwo.scale.y = 0.5;
 
-    this.head.position.y = 0.53;
+    this.head.position.y = 0.5;
     this.head.add(headSphere.mesh, nose, eyeOne, eyeTwo);
   }
 

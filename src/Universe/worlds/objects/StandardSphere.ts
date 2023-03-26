@@ -73,7 +73,7 @@ export default class StandardSphere {
       displacementMap: null,
       roughnessMap: null,
 
-      displacementScale: 0.1,
+      displacementScale: 0,
       roughness: 1,
       metalness: 0.0,
 
@@ -81,6 +81,8 @@ export default class StandardSphere {
     };
     if (!this.meshSources) return;
     Object.assign(this.meshTextures, this.meshSources);
+
+    console.log(this.meshTextures);
 
     this.geometry.setAttribute(
       "uv2",
@@ -92,9 +94,7 @@ export default class StandardSphere {
   setMaterial() {
     this.setTextures();
 
-    this.material = new MeshStandardMaterial({
-      ...this.meshTextures,
-    });
+    this.material = new MeshStandardMaterial(this.meshTextures);
   }
 
   createMesh() {

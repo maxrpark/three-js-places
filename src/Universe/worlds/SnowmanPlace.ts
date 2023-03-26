@@ -39,33 +39,41 @@ export default class SnowmanPlace {
       bottomTextures: {
         map: this.resources.items.dirtColor,
         normalMap: this.resources.items.dirtNormal,
-        roughness: 1,
-        metalness: 0.07,
       },
     });
   }
 
   createSnowMan() {
-    // this.snowman = new Group();
-
     const textureData: MeshTextureInt = {
       map: this.resources.items.snowColor,
       normalMap: this.resources.items.snowNormal,
       aoMap: this.resources.items.snowOcclusion,
       roughnessMap: this.resources.items.snowRoughness,
-      metalness: 0.07,
-      aoMapIntensity: 1,
+      displacementMap: this.resources.items.pollHeight,
+      roughness: 0.5,
     };
 
     this.snowman = new Snowman({ textureData });
     this.snowman.group.position.set(1, 1.3, -0.6);
+    // this.snowman.group.position.set(-1, 1.3, 1.6);
   }
   createPollLight() {
-    this.pollLight = new PollLight();
+    const pollTextures: MeshTextureInt = {
+      map: this.resources.items.pollColor,
+      normalMap: this.resources.items.pollNormal,
+      aoMap: this.resources.items.pollOcclusion,
+      roughnessMap: this.resources.items.pollRoughness,
+      metalnessMap: this.resources.items.pollMetalness,
+    };
+
+    this.pollLight = new PollLight({
+      pollTextures,
+      bellMapCap: this.resources.items.bellMapCap,
+    });
     this.pollLight.group.position.x = -1;
-    0.5;
     this.pollLight.group.position.y = 1.7;
     this.pollLight.group.position.z = -0.5;
+    // this.pollLight.group.position.z = 1.5;
   }
   createWorld() {
     this.createPollLight();
