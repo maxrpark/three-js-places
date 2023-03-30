@@ -62,6 +62,7 @@ export class Experience implements ExperienceInt {
   }
   update() {
     this.camera.update();
+    // this.universe.update();
     this.renderer.update();
   }
   resize() {

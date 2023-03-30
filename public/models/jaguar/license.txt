@@ -1,0 +1,11 @@
+Model Information:
+* title:	jaguar
+* source:	https://sketchfab.com/3d-models/jaguar-91c61c329d2a4668816f81f08dfcd492
+* author:	Ear.Rodriguez (https://sketchfab.com/Ear.Rodriguez)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "jaguar" (https://sketchfab.com/3d-models/jaguar-91c61c329d2a4668816f81f08dfcd492) by Ear.Rodriguez (https://sketchfab.com/Ear.Rodriguez) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

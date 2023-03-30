@@ -2,7 +2,13 @@ import { Experience, ExperienceInt } from "../experience/Experience";
 import { Environment } from "./Environment";
 import { Debug } from "../experience/utils";
 import GUI from "lil-gui";
-import { BasicWorld, Forest, OrangeOrchard, SnowmanPlace } from "./worlds";
+import {
+  BasicWorld,
+  Forest,
+  OrangeOrchard,
+  SnowmanPlace,
+  Desert,
+} from "./worlds";
 import { Mesh, Group } from "three";
 import { StandardBlock } from "../blocks";
 import Resources from "../experience/utils/Resources";
@@ -39,6 +45,7 @@ export class Universe {
       Forest: Forest,
       "Orange Orchard": OrangeOrchard,
       SnowmanPlace: SnowmanPlace,
+      Desert: Desert,
     };
 
     this.environment = new Environment({
@@ -56,9 +63,10 @@ export class Universe {
         Forest: "Forest",
         "Orange Orchard": "Orange Orchard",
         SnowmanPlace: "SnowmanPlace",
+        Desert: "Desert",
       })
       .onChange((value: string) => this.destroyWorld(value))
-      .setValue("SnowmanPlace");
+      .setValue("Desert");
 
     // this.debugFolder.addColor(debug, "color");
   }

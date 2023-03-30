@@ -101,4 +101,9 @@ export default [
     type: "textureLoader",
     path: "textures/mapCaps/15100F_241D1B_292424_2C2C27-512px.png",
   },
+  {
+    name: "snowMap",
+    type: "textureLoader",
+    path: "textures/particles/star_09.png",
+  },
 ] as SourceInt[];
