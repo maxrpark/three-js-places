@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tree Isolated
+* source:	https://sketchfab.com/3d-models/tree-isolated-80d7266f08e44b4fbc445ad66756d1fe
+* author:	lgillespie (https://sketchfab.com/lgillespie)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tree Isolated" (https://sketchfab.com/3d-models/tree-isolated-80d7266f08e44b4fbc445ad66756d1fe) by lgillespie (https://sketchfab.com/lgillespie) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

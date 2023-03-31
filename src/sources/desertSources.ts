@@ -1,7 +1,7 @@
 export interface SourceInt {
   type: "cubeTextureLoader" | "textureLoader" | "gltfLoader";
   name: string;
-  path: string & string[];
+  path: string | string[];
 }
 
 export default [
@@ -31,8 +31,23 @@ export default [
     path: "textures/desert_ground/roughness.jpg",
   },
   {
-    name: "Jaguar",
+    name: "jaguar",
     type: "gltfLoader",
     path: "models/jaguar/scene.gltf",
+  },
+  {
+    name: "simple_bush",
+    type: "gltfLoader",
+    path: "models/simple_bush/scene.gltf",
+  },
+  {
+    name: "tree_animation",
+    type: "gltfLoader",
+    path: "models/tree_animation/scene.gltf",
+  },
+  {
+    name: "tree_isolated",
+    type: "gltfLoader",
+    path: "models/tree_isolated/scene.gltf",
   },
 ] as SourceInt[];

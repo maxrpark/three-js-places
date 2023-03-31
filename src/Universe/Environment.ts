@@ -76,7 +76,7 @@ export class Environment implements EnvironmentInt {
   }
 
   setDirectionalLight() {
-    this.directionalLight = new THREE.DirectionalLight("#b9d5ff", 2.2);
+    this.directionalLight = new THREE.DirectionalLight("#b9d5ff", 5.2);
 
     this.directionalLight.position.set(2.6, 2, 2);
 

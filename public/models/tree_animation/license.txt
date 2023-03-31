@@ -1,0 +1,11 @@
+Model Information:
+* title:	Tree Animation
+* source:	https://sketchfab.com/3d-models/tree-animation-59eff9dca99d4c9abb316109d22ebabb
+* author:	MatDesign3D (https://sketchfab.com/MatDesign3D)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Tree Animation" (https://sketchfab.com/3d-models/tree-animation-59eff9dca99d4c9abb316109d22ebabb) by MatDesign3D (https://sketchfab.com/MatDesign3D) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

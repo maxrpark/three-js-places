@@ -2,13 +2,14 @@ import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/desertSources";
 import { Experience } from "../../experience/Experience";
 import { Time, Sizes, Camera } from "../../experience/utils";
+import { Jaguar, OneAnimationModel } from "./models";
+
 import {
   Group,
   MeshStandardMaterial,
   PlaneGeometry,
   Mesh,
   Float32BufferAttribute,
-  AnimationMixer,
 } from "three";
 import { MeshTextureInt } from "./interfaces";
 interface Props {}
@@ -20,7 +21,10 @@ export default class Desert {
   floor: Mesh;
   resources: Resources;
 
-  jaguar: any;
+  jaguar: Jaguar;
+  acaciaThree: OneAnimationModel;
+  tree: OneAnimationModel;
+  bush: any;
   animation: any;
   experience: Experience;
   camera: Camera;
@@ -35,9 +39,7 @@ export default class Desert {
 
     this.resources.on("loaded", () => {
       this.createWorld();
-      this.time.on("tick", () =>
-        this.animation.mixer.update(this.time.delta * 0.001)
-      );
+      this.time.on("tick", () => this.update());
     });
 
     // todo
@@ -49,7 +51,7 @@ export default class Desert {
   }
 
   setFloorGeometry() {
-    this.floorGeometry = new PlaneGeometry(4.5, 3, 100, 100);
+    this.floorGeometry = new PlaneGeometry(7.5, 5, 100, 100);
   }
 
   setFloorMaterial() {
@@ -59,7 +61,8 @@ export default class Desert {
       aoMap: this.resources.items.floorOcclusion,
       displacementMap: this.resources.items.floorHeight,
       // roughnessMap: this.resources.items.floorRoughness,
-      // aoMapIntensity: 10,
+      // roughness: 1,
+      metalness: 0.001,
       displacementScale: 0.6,
     };
 
@@ -77,37 +80,49 @@ export default class Desert {
     this.setFloorGeometry();
     this.setFloorMaterial();
     this.floor = new Mesh(this.floorGeometry, this.floorMaterial);
-
     this.floor.rotation.x = Math.PI / -2;
-
     this.floor.receiveShadow = true;
   }
   createJaguar() {
-    this.jaguar = this.resources.items.Jaguar;
-    this.jaguar.scene.position.y = 0.17;
+    this.jaguar = new Jaguar({ source: this.resources.items.jaguar });
+    this.jaguar.model.position.y = 0.17;
+  }
 
-    this.jaguar.scene.traverse((child: any) => {
-      if (child instanceof Mesh) {
-        child.castShadow = true;
-      }
+  createThrees() {
+    this.acaciaThree = new OneAnimationModel({
+      source: this.resources.items.tree_animation,
     });
-    this.setAnimation();
+    this.acaciaThree.model.scale.set(0.5, 0.5, 0.5);
+    this.acaciaThree.model.position.x = -5;
+
+    this.tree = new OneAnimationModel({
+      source: this.resources.items.tree_isolated,
+    });
+
+    this.tree.model.position.set(2, 0.2, -0.5);
+
+    this.tree.model.scale.set(0.045, 0.045, 0.045);
+
+    // this.bush = new OneAnimationModel({
+    //   source: this.resources.items.simple_bush,
+    // });
+    // this.bush.model.scale.set(2, 2, 2);
+    // this.bush.model.position.set(2, 0, -1);
   }
 
-  setAnimation() {
-    this.animation = {};
-    this.animation.mixer = new AnimationMixer(this.jaguar.scene);
-    this.animation.action = this.animation.mixer.clipAction(
-      this.jaguar.animations[0]
-    );
-    this.animation.action.play();
-  }
   update() {
-    // console.log("hello");
+    this.jaguar.update();
   }
   createWorld() {
     this.createJaguar();
+    this.createThrees();
     this.createFloor();
-    this.world.add(this.floor, this.jaguar.scene);
+    this.world.add(
+      this.floor,
+      this.acaciaThree.model,
+      this.tree.model,
+      // this.bush.model,
+      this.jaguar.model
+    );
   }
 }
