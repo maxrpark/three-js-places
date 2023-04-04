@@ -6,4 +6,14 @@ import Snow from "./Snow";
 
 import PollLight from "./PollLight";
 
-export { FruitThree, PineThree, StandardSphere, Snowman, PollLight, Snow };
+import DesertFloor from "./DesertFloor";
+
+export {
+  FruitThree,
+  PineThree,
+  StandardSphere,
+  Snowman,
+  PollLight,
+  Snow,
+  DesertFloor,
+};

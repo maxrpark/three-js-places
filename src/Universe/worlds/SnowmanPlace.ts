@@ -96,7 +96,7 @@ export default class SnowmanPlace {
 
     this.pollLight = new PollLight({
       pollTextures,
-      bellMapCap: this.resources.items.bellMapCap,
+      bellmatcap: this.resources.items.bellmatcap,
     });
     this.pollLight.group.position.x = -1;
     this.pollLight.group.position.y = 1.7;

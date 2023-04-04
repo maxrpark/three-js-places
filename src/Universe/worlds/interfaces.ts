@@ -10,5 +10,5 @@ export interface MeshTextureInt {
   displacementScale?: any;
   roughness?: number;
   metalness?: number;
-  mapCap?: any;
+  matcap?: any;
 }

@@ -1,7 +1,7 @@
 export interface SourceInt {
   type: "cubeTextureLoader" | "textureLoader" | "gltfLoader";
   name: string;
-  path: string | string[];
+  path: string & string[];
 }
 
 export default [

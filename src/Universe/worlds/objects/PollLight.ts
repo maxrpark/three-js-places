@@ -16,7 +16,7 @@ import { MeshTextureInt } from "../interfaces";
 
 interface Props {
   pollTextures: MeshTextureInt;
-  bellMapCap: any;
+  bellmatcap: any;
   // bellTextures: MeshTextureInt;
 }
 
@@ -38,7 +38,7 @@ export default class PollLight {
 
   // Props
   pollTextures: MeshTextureInt;
-  bellMapCap: any;
+  bellmatcap: any;
   // bellTextures: MeshTextureInt;
 
   constructor(props?: Props) {
@@ -116,7 +116,7 @@ export default class PollLight {
   }
 
   setBellMaterial() {
-    this.bellMaterial = new MeshMatcapMaterial({ matcap: this.bellMapCap });
+    this.bellMaterial = new MeshMatcapMaterial({ matcap: this.bellmatcap });
   }
   createBell() {
     this.setBellGeometry();

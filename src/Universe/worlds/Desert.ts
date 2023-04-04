@@ -2,34 +2,32 @@ import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/desertSources";
 import { Experience } from "../../experience/Experience";
 import { Time, Sizes, Camera } from "../../experience/utils";
-import { Jaguar, OneAnimationModel } from "./models";
-
-import {
-  Group,
-  MeshStandardMaterial,
-  PlaneGeometry,
-  Mesh,
-  Float32BufferAttribute,
-} from "three";
+import { OneAnimationModel } from "./models";
+import { Water } from "./shaders";
+import { Group, MeshStandardMaterial, PlaneGeometry } from "three";
 import { MeshTextureInt } from "./interfaces";
+import { DesertFloor } from "./objects";
+import Text3D from "./text";
 interface Props {}
 export default class Desert {
   world: Group;
 
   floorGeometry: PlaneGeometry;
   floorMaterial: MeshStandardMaterial;
-  floor: Mesh;
+  floor: DesertFloor;
   resources: Resources;
 
-  jaguar: Jaguar;
+  jaguar: OneAnimationModel;
   acaciaThree: OneAnimationModel;
   tree: OneAnimationModel;
-  bush: any;
-  animation: any;
+
   experience: Experience;
   camera: Camera;
   time: Time;
   sizes: Sizes;
+  water: Water;
+
+  text: Text3D;
 
   constructor(props?: Props) {
     this.world = new Group();
@@ -39,6 +37,7 @@ export default class Desert {
 
     this.resources.on("loaded", () => {
       this.createWorld();
+
       this.time.on("tick", () => this.update());
     });
 
@@ -49,80 +48,75 @@ export default class Desert {
     this.sizes = this.experience.sizes;
     this.camera = this.experience.camera;
   }
-
-  setFloorGeometry() {
-    this.floorGeometry = new PlaneGeometry(7.5, 5, 100, 100);
+  createText() {
+    this.text = new Text3D({ text: "Desert world" });
+    this.text.on("textLoaded", () => {
+      this.world.add(this.text.mesh);
+    });
   }
 
-  setFloorMaterial() {
+  createFloor() {
     const textures: MeshTextureInt = {
       map: this.resources.items.floorColor,
       normalMap: this.resources.items.floorNormal,
       aoMap: this.resources.items.floorOcclusion,
       displacementMap: this.resources.items.floorHeight,
-      // roughnessMap: this.resources.items.floorRoughness,
-      // roughness: 1,
       metalness: 0.001,
       displacementScale: 0.6,
     };
 
-    this.floorMaterial = new MeshStandardMaterial({
-      ...textures,
-    });
-
-    this.floorGeometry.setAttribute(
-      "uv2",
-      //@ts-ignore
-      new Float32BufferAttribute(this.floorGeometry.attributes.uv.array, 2)
-    );
-  }
-  createFloor() {
-    this.setFloorGeometry();
-    this.setFloorMaterial();
-    this.floor = new Mesh(this.floorGeometry, this.floorMaterial);
-    this.floor.rotation.x = Math.PI / -2;
-    this.floor.receiveShadow = true;
+    this.floor = new DesertFloor({ textures });
+    this.floor.mesh.position.y = -0.3;
   }
   createJaguar() {
-    this.jaguar = new Jaguar({ source: this.resources.items.jaguar });
+    this.jaguar = new OneAnimationModel({
+      source: this.resources.items.jaguar,
+    });
     this.jaguar.model.position.y = 0.17;
   }
 
-  createThrees() {
+  createWater() {
+    this.water = new Water();
+  }
+
+  createAcaciaThree() {
     this.acaciaThree = new OneAnimationModel({
-      source: this.resources.items.tree_animation,
-    });
-    this.acaciaThree.model.scale.set(0.5, 0.5, 0.5);
-    this.acaciaThree.model.position.x = -5;
-
-    this.tree = new OneAnimationModel({
       source: this.resources.items.tree_isolated,
+      animationValue: 0.0003,
     });
 
-    this.tree.model.position.set(2, 0.2, -0.5);
-
-    this.tree.model.scale.set(0.045, 0.045, 0.045);
-
-    // this.bush = new OneAnimationModel({
-    //   source: this.resources.items.simple_bush,
-    // });
-    // this.bush.model.scale.set(2, 2, 2);
-    // this.bush.model.position.set(2, 0, -1);
+    this.acaciaThree.model.position.set(2, 0.2, -0.5);
+    this.acaciaThree.model.scale.set(0.045, 0.045, 0.045);
   }
 
-  update() {
-    this.jaguar.update();
+  createThree() {
+    this.tree = new OneAnimationModel({
+      source: this.resources.items.tree_animation,
+      animationValue: 0.0004,
+    });
+
+    this.tree.model.scale.set(0.5, 0.5, 0.5);
+    this.tree.model.position.x = -5;
+    this.tree.model.position.z = 1;
   }
+
   createWorld() {
-    this.createJaguar();
-    this.createThrees();
+    this.createText();
     this.createFloor();
+    this.createWater();
+
     this.world.add(
-      this.floor,
-      this.acaciaThree.model,
-      this.tree.model,
-      // this.bush.model,
-      this.jaguar.model
+      this.floor.mesh,
+      this.water.mesh
+
+      // this.acaciaThree.model,
+      // this.tree.model,
+      // this.jaguar.model
     );
+  }
+  update() {
+    // this.jaguar.update();
+    // this.acaciaThree.update();
+    // this.tree.update();
   }
 }

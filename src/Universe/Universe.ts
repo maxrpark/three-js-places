@@ -8,6 +8,7 @@ import {
   OrangeOrchard,
   SnowmanPlace,
   Desert,
+  BoxesWorld,
 } from "./worlds";
 import { Mesh, Group } from "three";
 import { StandardBlock } from "../blocks";
@@ -46,7 +47,9 @@ export class Universe {
       "Orange Orchard": OrangeOrchard,
       SnowmanPlace: SnowmanPlace,
       Desert: Desert,
+      BoxesWorld: BoxesWorld,
     };
+    console.log(this.worlds);
 
     this.environment = new Environment({
       hasAmbientLight: true,
@@ -59,6 +62,7 @@ export class Universe {
 
     this.debugFolder
       .add({}, "worlds", {
+        BoxesWorld: "BoxesWorld",
         "Basic World": "Basic World",
         Forest: "Forest",
         "Orange Orchard": "Orange Orchard",
@@ -66,7 +70,7 @@ export class Universe {
         Desert: "Desert",
       })
       .onChange((value: string) => this.destroyWorld(value))
-      .setValue("Desert");
+      .setValue("BoxesWorld");
 
     // this.debugFolder.addColor(debug, "color");
   }
@@ -100,6 +104,8 @@ export class Universe {
     const world = this.selectedWorld;
 
     this.world = new world();
+
+    console.log(this.world);
 
     if (this.world) this.experience.scene.add(this.world.world);
     this.experience.camera.camera.position.set(1.5, 3.5, 5);
