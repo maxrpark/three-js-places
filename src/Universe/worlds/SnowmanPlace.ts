@@ -1,14 +1,13 @@
-import {
-  Group,
-  //  Raycaster, Vector2
-} from "three";
+import { Group } from "three";
+
 import { StandardBlock } from "../../blocks";
 import { Experience } from "../../experience/Experience";
 import { Time, Sizes, Camera } from "../../experience/utils";
+import { MeshTextureInt } from "./interfaces";
+
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/snowManSources";
 import { Snowman, PollLight, Snow } from "./objects";
-import { MeshTextureInt } from "./interfaces";
 
 export default class SnowmanPlace {
   experience: Experience;
@@ -22,9 +21,7 @@ export default class SnowmanPlace {
   snowman: Snowman;
   pollLight: PollLight;
   snow: Snow;
-  // cursor: Vector2;
-  // raycaster: Raycaster;
-  // intersects: any[];
+
   constructor() {
     this.world = new Group();
     this.resources = new Resources(sources);
@@ -39,16 +36,6 @@ export default class SnowmanPlace {
       this.createWorld();
       this.time.on("tick", () => this.update());
     });
-
-    // this.cursor = new Vector2(0, 0);
-
-    // window.addEventListener("mousemove", (event) => {
-    //   this.cursor.x = event.clientX / this.sizes.width - 0.5;
-    //   this.cursor.y = event.clientY / this.sizes.height - 0.5;
-    // });
-
-    // this.raycaster = new Raycaster();
-    // this.intersects = [];
   }
   createArea() {
     this.area = new StandardBlock({
@@ -83,7 +70,6 @@ export default class SnowmanPlace {
 
     this.snowman = new Snowman({ textureData });
     this.snowman.group.position.set(1, 1.3, -0.6);
-    // this.snowman.group.position.set(-1, 1.3, 1.6);
   }
   createPollLight() {
     const pollTextures: MeshTextureInt = {
@@ -101,7 +87,6 @@ export default class SnowmanPlace {
     this.pollLight.group.position.x = -1;
     this.pollLight.group.position.y = 1.7;
     this.pollLight.group.position.z = -0.5;
-    // this.pollLight.group.position.z = 1.5;
   }
   createSnow() {
     const snowTexture: MeshTextureInt = {
@@ -119,7 +104,6 @@ export default class SnowmanPlace {
     this.createSnow();
     this.createArea();
 
-    //
     this.world.add(
       this.area.group,
       this.snowman.group,
@@ -129,24 +113,5 @@ export default class SnowmanPlace {
   }
   update() {
     this.snow.group.rotation.y += this.time.delta * 0.00001;
-    // this.snow.group.rotation.x += this.time.delta * 0.0005;
-    // this.snow.group.scale.y -= 0.01;
-
-    // this.snow.group.position.y = -this.cursor.y;
-    // this.snow.group.position.x = this.cursor.x;
-
-    // if (this.snow.group.position.y > 0.9) {
-    //   this.snow.group.position.y += this.time.delta * 0.00003;
-    // } else {
-    //   this.snow.group.position.y += 0.3;
-    // }
-
-    // this.raycaster.setFromCamera(this.cursor, this.camera.camera);
-    // this.intersects = this.raycaster.intersectObject(this.snow.group);
-
-    // if (this.intersects.length !== 0) {
-    //   let obj = this.intersects[0].object;
-    //   obj.material.color.set(0xffff00);
-    // }
   }
 }

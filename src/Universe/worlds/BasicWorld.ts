@@ -10,11 +10,9 @@ export default class SnowmanPlace {
   rightArea: StandardBlock;
   world: Group;
   resources: Resources;
-  textures: any;
   constructor() {
     this.world = new Group();
     this.resources = new Resources(sources);
-    this.textures = {};
 
     this.resources.on("loaded", () => {
       this.createWorld();

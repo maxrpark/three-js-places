@@ -3,7 +3,8 @@ import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/orchardSources";
-import FruitThree from "./objects/FruitThree";
+import { FruitThree } from "./objects";
+import { MeshTextureInt } from "./interfaces";
 
 export default class OrangeOrchard {
   leftArea: StandardBlock;
@@ -11,7 +12,7 @@ export default class OrangeOrchard {
   rightArea: StandardBlock;
   world: Group;
   resources: Resources;
-  textures: any;
+  textures: MeshTextureInt;
   constructor() {
     this.world = new Group();
     this.resources = new Resources(sources);

@@ -1,11 +1,11 @@
 import { Group } from "three";
-import { StandardBlock } from "../../blocks";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/forestSources";
+import { StandardBlock } from "../../blocks";
 import { WorldInt } from "../Universe";
-import PineThree from "./objects/PineThree";
 import { MeshTextureInt } from "./interfaces";
+import { PineThree } from "./objects/";
 interface ForestInt extends WorldInt {
   createForest: (area: StandardBlock) => void;
 }
