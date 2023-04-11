@@ -21,10 +21,6 @@ export interface WorldInt {
   world: Group;
   resources: Resources;
   textures: any;
-  // createLeftArea: () => void;
-  // createCenterArea: () => void;
-  // createRightArea: () => void;
-  // createWorld: () => void;
 }
 
 export class Universe {
@@ -47,9 +43,8 @@ export class Universe {
       "Orange Orchard": OrangeOrchard,
       SnowmanPlace: SnowmanPlace,
       Desert: Desert,
-      BoxesWorld: BoxesWorld,
+      "Boxes World": BoxesWorld,
     };
-    console.log(this.worlds);
 
     this.environment = new Environment({
       hasAmbientLight: true,
@@ -62,7 +57,7 @@ export class Universe {
 
     this.debugFolder
       .add({}, "worlds", {
-        BoxesWorld: "BoxesWorld",
+        "Boxes World": "Boxes World",
         "Basic World": "Basic World",
         Forest: "Forest",
         "Orange Orchard": "Orange Orchard",
@@ -70,7 +65,7 @@ export class Universe {
         Desert: "Desert",
       })
       .onChange((value: string) => this.destroyWorld(value))
-      .setValue("BoxesWorld");
+      .setValue("Desert");
 
     // this.debugFolder.addColor(debug, "color");
   }

@@ -72,7 +72,7 @@ export class Experience implements ExperienceInt {
   }
   destroy() {
     this.sizes.off("resize");
-    this.time.off("thick");
+    this.time.off("tick");
 
     this.scene.traverse((child) => {
       // Test if it's a mesh

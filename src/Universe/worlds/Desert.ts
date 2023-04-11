@@ -14,7 +14,7 @@ export default class Desert {
 
   floorGeometry: PlaneGeometry;
   floorMaterial: MeshStandardMaterial;
-  floor: DesertFloor;
+  floor: Group;
   resources: Resources;
 
   jaguar: OneAnimationModel;
@@ -56,6 +56,7 @@ export default class Desert {
   }
 
   createFloor() {
+    this.floor = new Group();
     const textures: MeshTextureInt = {
       map: this.resources.items.floorColor,
       normalMap: this.resources.items.floorNormal,
@@ -65,18 +66,25 @@ export default class Desert {
       displacementScale: 0.6,
     };
 
-    this.floor = new DesertFloor({ textures });
-    this.floor.mesh.position.y = -0.3;
+    let floorLeft = new DesertFloor({ textures, width: 2.5 });
+    floorLeft.mesh.position.x = -2.4;
+
+    let florRight = new DesertFloor({ textures, width: 2.4 });
+    florRight.mesh.position.x = 2.4;
+    this.floor.add(floorLeft.mesh, florRight.mesh);
   }
   createJaguar() {
     this.jaguar = new OneAnimationModel({
       source: this.resources.items.jaguar,
     });
+    this.jaguar.model.position.x = -1.5;
     this.jaguar.model.position.y = 0.17;
   }
 
   createWater() {
-    this.water = new Water();
+    this.water = new Water({ width: 2.5, height: 5 });
+
+    this.water.mesh.position.y = 0.18;
   }
 
   createAcaciaThree() {
@@ -85,7 +93,7 @@ export default class Desert {
       animationValue: 0.0003,
     });
 
-    this.acaciaThree.model.position.set(2, 0.2, -0.5);
+    this.acaciaThree.model.position.set(1, 0.2, -0.5);
     this.acaciaThree.model.scale.set(0.045, 0.045, 0.045);
   }
 
@@ -95,9 +103,9 @@ export default class Desert {
       animationValue: 0.0004,
     });
 
-    this.tree.model.scale.set(0.5, 0.5, 0.5);
-    this.tree.model.position.x = -5;
-    this.tree.model.position.z = 1;
+    this.tree.model.scale.set(0.52, 0.5, 0.5);
+    this.tree.model.position.x = -4.5;
+    this.tree.model.position.z = 2;
   }
 
   createWorld() {
@@ -105,18 +113,22 @@ export default class Desert {
     this.createFloor();
     this.createWater();
 
-    this.world.add(
-      this.floor.mesh,
-      this.water.mesh
+    this.createJaguar();
+    this.createAcaciaThree();
+    this.createThree();
 
-      // this.acaciaThree.model,
-      // this.tree.model,
-      // this.jaguar.model
+    this.world.add(
+      this.floor,
+      this.water.mesh,
+
+      this.acaciaThree.model,
+      this.tree.model,
+      this.jaguar.model
     );
   }
   update() {
-    // this.jaguar.update();
-    // this.acaciaThree.update();
-    // this.tree.update();
+    this.jaguar.update();
+    this.acaciaThree.update();
+    this.tree.update();
   }
 }

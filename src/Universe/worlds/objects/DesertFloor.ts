@@ -8,6 +8,8 @@ import { MeshTextureInt } from "../interfaces";
 
 interface Props {
   textures: MeshTextureInt;
+  width?: number;
+  height?: number;
 }
 
 export default class DesertFloor {
@@ -17,13 +19,17 @@ export default class DesertFloor {
 
   // propss
   textures: MeshTextureInt;
+  width: number;
+  height: number;
   constructor(props: Props) {
     Object.assign(this, props);
     this.createFloor();
   }
 
   setFloorGeometry() {
-    this.geometry = new PlaneGeometry(7.5, 5, 100, 100);
+    const width = this.width ? this.width : 7.5;
+    const height = this.height ? this.height : 5;
+    this.geometry = new PlaneGeometry(width, height, 100, 100);
   }
 
   setFloorMaterial() {
