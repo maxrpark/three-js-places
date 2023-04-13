@@ -15,9 +15,9 @@ interface Props {
 
 export default class Snow {
   // snow:
-  snowGeometry: BufferGeometry;
-  snowMaterial: PointsMaterial;
-  group: Points;
+  geometry: BufferGeometry;
+  material: PointsMaterial;
+  points: Points;
 
   // props
   snowFlakesCount: number;
@@ -29,7 +29,7 @@ export default class Snow {
   }
 
   setGeometry() {
-    this.snowGeometry = new BufferGeometry();
+    this.geometry = new BufferGeometry();
 
     if (!this.snowFlakesCount) this.snowFlakesCount = 500;
 
@@ -50,27 +50,21 @@ export default class Snow {
       position[i3 + 2] = (Math.random() - 0.5) * z;
     }
 
-    this.snowGeometry.setAttribute(
-      "position",
-      new BufferAttribute(position, 3)
-    );
+    this.geometry.setAttribute("position", new BufferAttribute(position, 3));
   }
   setMaterial() {
-    this.snowMaterial = new PointsMaterial();
-    this.snowMaterial.size = 0.05;
+    this.material = new PointsMaterial();
+    this.material.size = 0.05;
 
-    this.snowMaterial.transparent = true;
-    this.snowMaterial.alphaMap = this.snowTexture.map;
-    this.snowMaterial.color = new Color("#b9d5ff");
-    this.snowMaterial.depthWrite = false;
-    this.snowMaterial.blending = AdditiveBlending;
+    this.material.transparent = true;
+    this.material.alphaMap = this.snowTexture.map;
+    this.material.color = new Color("#b9d5ff");
+    this.material.depthWrite = false;
+    this.material.blending = AdditiveBlending;
   }
   createSnow() {
     this.setGeometry();
     this.setMaterial();
-    this.group = new Points(this.snowGeometry, this.snowMaterial);
-  }
-  onUpdate() {
-    console.log("updated");
+    this.points = new Points(this.geometry, this.material);
   }
 }

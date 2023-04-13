@@ -49,9 +49,9 @@ export class Environment implements EnvironmentInt {
     if (this.hasAmbientLight) this.setAmbientLight();
     if (this.hasDirectionalLight) this.setDirectionalLight();
 
-    if (this.environmentMapTexture) {
-      this.setEnvironmentMap();
-    }
+    // if (this.environmentMapTexture) {
+    this.setEnvironmentMap();
+    // }
   }
 
   setAmbientLight() {
@@ -93,15 +93,28 @@ export class Environment implements EnvironmentInt {
 
     this.directionalLight.castShadow = this.castShadow;
 
-    // const directionalLightCameraHelper = new THREE.CameraHelper(
-    //   this.directionalLight.shadow.camera
-    // );
-    // this.scene.add(directionalLightCameraHelper);
+    const directionalLightCameraHelper = new THREE.CameraHelper(
+      this.directionalLight.shadow.camera
+    );
+
+    const props = {
+      isCameraHelperVisible: false,
+    };
+    directionalLightCameraHelper.visible = props.isCameraHelperVisible;
+    this.scene.add(directionalLightCameraHelper);
+
+    // this.directionalLight.di
 
     this.scene.add(this.directionalLight);
 
     if (this.debug.active) {
       this.debugFolder = this.debug.ui.addFolder("directional light");
+      this.debugFolder
+        .add(props, "isCameraHelperVisible")
+        .name("camera helper")
+        .onChange((value: boolean) => {
+          directionalLightCameraHelper.visible = value;
+        });
       this.debugFolder
         .add(this.directionalLight, "intensity")
         .name("intensity")
@@ -137,16 +150,14 @@ export class Environment implements EnvironmentInt {
 
   setEnvironmentMap() {
     this.environmentMap = {};
-    this.environmentMap.intensity = 1;
-    this.environmentMap.texture = this.environmentMapTexture;
-    this.environmentMap.texture.encoding = THREE.sRGBEncoding;
+    this.environmentMap.intensity = 0.1;
 
-    this.scene.background = this.environmentMap.texture;
-    this.scene.environment = this.environmentMap.texture;
+    this.environmentMap.encoding = THREE.sRGBEncoding;
 
-    this.experience.renderer.renderer.outputEncoding = THREE.sRGBEncoding;
-    this.experience.renderer.renderer.toneMapping = THREE.LinearToneMapping;
-    this.experience.renderer.renderer.toneMappingExposure = 1;
+    if (this.environmentMapTexture) {
+      this.scene.background = this.environmentMap.texture;
+      this.scene.environment = this.environmentMap.texture;
+    }
 
     this.environmentMap.updateMaterial = () => {
       this.scene.traverse((child) => {

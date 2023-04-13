@@ -3,6 +3,7 @@ import {
   Mesh,
   MeshStandardMaterial,
   PlaneGeometry,
+  sRGBEncoding,
 } from "three";
 import { MeshTextureInt } from "../interfaces";
 
@@ -34,7 +35,7 @@ export default class DesertFloor {
 
   setFloorMaterial() {
     this.material = new MeshStandardMaterial(this.textures);
-
+    this.material.map!.encoding = sRGBEncoding;
     this.geometry.setAttribute(
       "uv2",
       //@ts-ignore

@@ -7,7 +7,7 @@ import {
   Forest,
   OrangeOrchard,
   SnowmanPlace,
-  Desert,
+  Wild,
   BoxesWorld,
 } from "./worlds";
 import { Mesh, Group } from "three";
@@ -42,7 +42,7 @@ export class Universe {
       Forest: Forest,
       "Orange Orchard": OrangeOrchard,
       SnowmanPlace: SnowmanPlace,
-      Desert: Desert,
+      Wild: Wild,
       "Boxes World": BoxesWorld,
     };
 
@@ -62,12 +62,10 @@ export class Universe {
         Forest: "Forest",
         "Orange Orchard": "Orange Orchard",
         SnowmanPlace: "SnowmanPlace",
-        Desert: "Desert",
+        Wild: "Wild",
       })
       .onChange((value: string) => this.destroyWorld(value))
-      .setValue("Desert");
-
-    // this.debugFolder.addColor(debug, "color");
+      .setValue("Wild");
   }
   destroyWorld(value: string) {
     this.selectedWorld = this.worlds[value];
@@ -99,8 +97,6 @@ export class Universe {
     const world = this.selectedWorld;
 
     this.world = new world();
-
-    console.log(this.world);
 
     if (this.world) this.experience.scene.add(this.world.world);
     this.experience.camera.camera.position.set(1.5, 3.5, 5);

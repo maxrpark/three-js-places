@@ -49,7 +49,7 @@ export default class Desert {
     this.camera = this.experience.camera;
   }
   createText() {
-    this.text = new Text3D({ text: "Desert world" });
+    this.text = new Text3D({ text: "Desert world", matcapName: "brown_1" });
     this.text.on("textLoaded", () => {
       this.world.add(this.text.mesh);
     });
@@ -66,18 +66,18 @@ export default class Desert {
       displacementScale: 0.6,
     };
 
-    let floorLeft = new DesertFloor({ textures, width: 2.5 });
-    floorLeft.mesh.position.x = -2.4;
+    let floorLeft = new DesertFloor({ textures, width: 3 });
+    floorLeft.mesh.position.x = -2.7;
 
-    let florRight = new DesertFloor({ textures, width: 2.4 });
-    florRight.mesh.position.x = 2.4;
+    let florRight = new DesertFloor({ textures, width: 3 });
+    florRight.mesh.position.x = 2.7;
     this.floor.add(floorLeft.mesh, florRight.mesh);
   }
   createJaguar() {
     this.jaguar = new OneAnimationModel({
       source: this.resources.items.jaguar,
     });
-    this.jaguar.model.position.x = -1.5;
+    this.jaguar.model.position.x = -3;
     this.jaguar.model.position.y = 0.17;
   }
 
@@ -93,7 +93,7 @@ export default class Desert {
       animationValue: 0.0003,
     });
 
-    this.acaciaThree.model.position.set(1, 0.2, -0.5);
+    this.acaciaThree.model.position.set(1, 0.2, -0.2);
     this.acaciaThree.model.scale.set(0.045, 0.045, 0.045);
   }
 
@@ -104,7 +104,7 @@ export default class Desert {
     });
 
     this.tree.model.scale.set(0.52, 0.5, 0.5);
-    this.tree.model.position.x = -4.5;
+    this.tree.model.position.x = -3.5;
     this.tree.model.position.z = 2;
   }
 

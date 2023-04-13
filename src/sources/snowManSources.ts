@@ -99,7 +99,7 @@ export default [
   {
     name: "bellmatcap",
     type: "textureLoader",
-    path: "textures/matcaps/15100F_241D1B_292424_2C2C27-512px.png",
+    path: "textures/mapCaps/15100F_241D1B_292424_2C2C27-512px.png",
   },
   {
     name: "snowMap",

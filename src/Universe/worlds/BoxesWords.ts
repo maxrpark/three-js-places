@@ -5,6 +5,7 @@ import {
   MeshBasicMaterial,
   MeshMatcapMaterial,
   TextureLoader,
+  sRGBEncoding,
 } from "three";
 import Text3D from "./text";
 import { Experience } from "../../experience/Experience";
@@ -48,8 +49,12 @@ export default class BoxesWorld {
     const textureLoader = new TextureLoader();
     const matcap = textureLoader.load(`textures/mapCaps/metalic-1.png`);
 
+    matcap.encoding = sRGBEncoding;
+
+    const material = new MeshMatcapMaterial({ matcap });
+
     for (let i = 0; i < 150; i++) {
-      const box = new Mesh(this.geometry, new MeshMatcapMaterial({ matcap }));
+      const box = new Mesh(this.geometry, material);
 
       const angle = Math.random() * Math.PI * 2;
       const radius = 2 + Math.random() * 10;

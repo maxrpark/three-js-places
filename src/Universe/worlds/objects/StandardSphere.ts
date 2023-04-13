@@ -3,6 +3,7 @@ import {
   MeshStandardMaterial,
   SphereGeometry,
   Float32BufferAttribute,
+  sRGBEncoding,
 } from "three";
 import { MeshTextureInt } from "../interfaces";
 
@@ -82,7 +83,7 @@ export default class StandardSphere {
     if (!this.meshSources) return;
     Object.assign(this.meshTextures, this.meshSources);
 
-    console.log(this.meshTextures);
+    this.meshTextures.map.encoding = sRGBEncoding;
 
     this.geometry.setAttribute(
       "uv2",

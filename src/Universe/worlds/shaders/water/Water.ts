@@ -57,13 +57,15 @@ export default class Water {
       fragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        uBigWavesFrequency: { value: new Vector2(1.8, 5) },
-        uBigWavesElevation: { value: 0.05 },
-        uBigWavesSpeed: { value: 0.08 },
+        uBigWavesFrequency: { value: new Vector2(0, 2.301) },
+        uBigWavesElevation: { value: 0.102 },
+        uBigWavesSpeed: { value: 0.001 },
+        // 0.102
+        // 2.301
 
-        uSmallWavesElevation: { value: 0.13 },
-        uSmallWavesFrequency: { value: 2 },
-        uSmallWavesSpeed: { value: 0.05 },
+        uSmallWavesElevation: { value: 0.091 },
+        uSmallWavesFrequency: { value: 2.407 },
+        uSmallWavesSpeed: { value: 0.032 },
         uSmallIterations: { value: 3 },
 
         uColorOffset: { value: 0.28 },

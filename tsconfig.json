@@ -16,5 +16,5 @@
     "skipLibCheck": true,
     "strictPropertyInitialization": false
   },
-  "include": ["src", "glsl.ts"]
+  "include": ["src", "glsl.d.ts"]
 }

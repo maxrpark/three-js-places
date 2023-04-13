@@ -92,6 +92,8 @@ export default class FruitThree {
   setBaseTexture() {
     this.baseMeshTextures.map = this.baseTextures!.map;
     this.baseMeshTextures.normalMap = this.baseTextures!.normalMap;
+
+    this.baseMeshTextures.map.encoding = sRGBEncoding;
   }
   setBaseMaterial() {
     this.baseMaterial = new MeshStandardMaterial();
@@ -100,6 +102,7 @@ export default class FruitThree {
       map: null,
       normalMap: null,
     };
+
     if (this.baseTextures) this.setBaseTexture();
 
     this.baseMaterial = new MeshStandardMaterial({
@@ -131,6 +134,8 @@ export default class FruitThree {
       displacementMap: null,
       roughnessMap: null,
     };
+    this.thunkTextures.map.encoding = sRGBEncoding;
+
     if (!this.thunkMeshTextures) return;
 
     Object.assign(this.thunkMeshTextures, this.thunkTextures);
@@ -237,6 +242,7 @@ export default class FruitThree {
       aoMapIntensity: 1,
       displacementScale: 0.05,
     };
+    this.fruitTextures.map.encoding = sRGBEncoding;
     if (!this.fruitMeshTextures) return;
     Object.assign(this.fruitMeshTextures, this.fruitTextures);
 

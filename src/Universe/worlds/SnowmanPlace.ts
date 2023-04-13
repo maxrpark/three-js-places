@@ -8,6 +8,7 @@ import { MeshTextureInt } from "./interfaces";
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/snowManSources";
 import { Snowman, PollLight, Snow } from "./objects";
+import Text3D from "./text";
 
 export default class SnowmanPlace {
   experience: Experience;
@@ -21,6 +22,7 @@ export default class SnowmanPlace {
   snowman: Snowman;
   pollLight: PollLight;
   snow: Snow;
+  text: Text3D;
 
   constructor() {
     this.world = new Group();
@@ -35,6 +37,12 @@ export default class SnowmanPlace {
     this.resources.on("loaded", () => {
       this.createWorld();
       this.time.on("tick", () => this.update());
+    });
+  }
+  createText() {
+    this.text = new Text3D({ text: "Snowman Place" });
+    this.text.on("textLoaded", () => {
+      this.world.add(this.text.mesh);
     });
   }
   createArea() {
@@ -95,9 +103,10 @@ export default class SnowmanPlace {
     this.snow = new Snow({
       snowTexture,
     });
-    this.snow.group.position.y = 1;
+    this.snow.points.position.y = 1;
   }
   createWorld() {
+    this.createText();
     this.createPollLight();
 
     this.createSnowMan();
@@ -108,10 +117,10 @@ export default class SnowmanPlace {
       this.area.group,
       this.snowman.group,
       this.pollLight.group,
-      this.snow.group
+      this.snow.points
     );
   }
   update() {
-    this.snow.group.rotation.y += this.time.delta * 0.00001;
+    this.snow.points.rotation.y += this.time.delta * 0.00001;
   }
 }

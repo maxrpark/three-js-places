@@ -146,6 +146,7 @@ export class StandardBlock implements StandardBlockInt {
       this.topMeshTextures,
       this.topTextures
     );
+    this.topMeshTextures.map.encoding = THREE.sRGBEncoding;
 
     this.topGeometry.setAttribute(
       "uv2",
@@ -206,6 +207,7 @@ export class StandardBlock implements StandardBlockInt {
         normalMap: null,
       };
     }
+    this.bottomTextures.map.encoding = THREE.sRGBEncoding;
   }
 
   setBottomMaterial() {

@@ -1,4 +1,4 @@
-import { Mesh, MeshMatcapMaterial, TextureLoader } from "three";
+import { Mesh, MeshMatcapMaterial, TextureLoader, sRGBEncoding } from "three";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import EventEmitter from "../../../experience/utils/EventEmitter";
@@ -51,6 +51,8 @@ export default class Text3D extends EventEmitter {
     const matcap = textureLoader.load(
       `textures/mapCaps/${this.matcapName}.png`
     );
+
+    matcap.encoding = sRGBEncoding;
 
     this.material = new MeshMatcapMaterial({ matcap });
   }
