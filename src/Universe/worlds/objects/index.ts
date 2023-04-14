@@ -2,7 +2,7 @@ import FruitThree from "./FruitThree";
 import PineThree from "./PineThree";
 import StandardSphere from "./StandardSphere";
 import Snowman from "./SnowMan";
-import Snow from "./Snow";
+import Particles from "./Particles";
 
 import PollLight from "./PollLight";
 
@@ -14,6 +14,6 @@ export {
   StandardSphere,
   Snowman,
   PollLight,
-  Snow,
+  Particles,
   DesertFloor,
 };

@@ -57,9 +57,9 @@ export default class Water {
       fragmentShader,
       uniforms: {
         uTime: { value: 0 },
-        uBigWavesFrequency: { value: new Vector2(0, 2.301) },
+        uBigWavesFrequency: { value: new Vector2(1.072, 2.301) },
         uBigWavesElevation: { value: 0.102 },
-        uBigWavesSpeed: { value: 0.001 },
+        uBigWavesSpeed: { value: 0.032 },
         // 0.102
         // 2.301
 
@@ -70,8 +70,8 @@ export default class Water {
 
         uColorOffset: { value: 0.28 },
         uColorMultiplier: { value: 1.05 },
-        uDepthColor: { value: new Color("#045886") },
-        uSurfaceColor: { value: new Color("#ccebf") },
+        uDepthColor: { value: new Color("#2a251d") },
+        uSurfaceColor: { value: new Color("#7ed1fb") },
       },
     });
 

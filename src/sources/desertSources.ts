@@ -50,4 +50,9 @@ export default [
     type: "gltfLoader",
     path: "models/tree_isolated/scene.gltf",
   },
+  {
+    name: "fliesMap",
+    type: "textureLoader",
+    path: "textures/particles/trace_05.png",
+  },
 ] as SourceInt[];

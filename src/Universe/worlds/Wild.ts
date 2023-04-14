@@ -6,7 +6,7 @@ import { OneAnimationModel } from "./models";
 import { Water } from "./shaders";
 import { Group, MeshStandardMaterial, PlaneGeometry } from "three";
 import { MeshTextureInt } from "./interfaces";
-import { DesertFloor } from "./objects";
+import { DesertFloor, Particles } from "./objects";
 import Text3D from "./text";
 interface Props {}
 export default class Desert {
@@ -26,6 +26,7 @@ export default class Desert {
   time: Time;
   sizes: Sizes;
   water: Water;
+  flies: Particles;
 
   text: Text3D;
 
@@ -49,7 +50,7 @@ export default class Desert {
     this.camera = this.experience.camera;
   }
   createText() {
-    this.text = new Text3D({ text: "Desert world", matcapName: "brown_1" });
+    this.text = new Text3D({ text: "Plenilunio", matcapName: "9" });
     this.text.on("textLoaded", () => {
       this.world.add(this.text.mesh);
     });
@@ -73,18 +74,18 @@ export default class Desert {
     florRight.mesh.position.x = 2.7;
     this.floor.add(floorLeft.mesh, florRight.mesh);
   }
+
+  createWater() {
+    this.water = new Water({ width: 2.5, height: 5 });
+    this.water.mesh.position.y = 0.18;
+  }
   createJaguar() {
     this.jaguar = new OneAnimationModel({
       source: this.resources.items.jaguar,
     });
-    this.jaguar.model.position.x = -3;
+    this.jaguar.model.position.x = -2.7;
     this.jaguar.model.position.y = 0.17;
-  }
-
-  createWater() {
-    this.water = new Water({ width: 2.5, height: 5 });
-
-    this.water.mesh.position.y = 0.18;
+    this.jaguar.model.position.z = 0.3;
   }
 
   createAcaciaThree() {
@@ -108,6 +109,38 @@ export default class Desert {
     this.tree.model.position.z = 2;
   }
 
+  createFlies() {
+    const particlesTexture: MeshTextureInt = {
+      map: this.resources.items.fliesMap,
+    };
+    this.flies = new Particles({
+      particlesTexture,
+      particlesCount: 5,
+      size: 0.05,
+      minRadius: 0.5,
+      maxRadius: 1,
+    });
+    this.flies.points.position.y = 1;
+  }
+
+  animateFlies() {
+    for (let i = 0; i < 5; i++) {
+      const i3 = i * 3;
+
+      //@ts-ignore
+      const x = this.flies.geometry.attributes.position.array[i3];
+
+      //@ts-ignore
+      this.flies.geometry.attributes.position.array[i3 + 1] =
+        Math.sin(this.time.elapsed * 0.002 + x) * 0.08;
+    }
+    const angle = this.time.elapsed * 0.0001;
+    this.flies.points.position.x = Math.cos(angle) * 3;
+    this.flies.points.position.z = Math.sin(angle) * 2;
+
+    this.flies.points.rotation.y = this.time.elapsed * 0.0002;
+    this.flies.geometry.attributes.position.needsUpdate = true;
+  }
   createWorld() {
     this.createText();
     this.createFloor();
@@ -116,6 +149,7 @@ export default class Desert {
     this.createJaguar();
     this.createAcaciaThree();
     this.createThree();
+    this.createFlies();
 
     this.world.add(
       this.floor,
@@ -123,12 +157,15 @@ export default class Desert {
 
       this.acaciaThree.model,
       this.tree.model,
-      this.jaguar.model
+      this.jaguar.model,
+      this.flies.points
     );
   }
   update() {
     this.jaguar.update();
     this.acaciaThree.update();
     this.tree.update();
+
+    this.animateFlies();
   }
 }

@@ -7,7 +7,7 @@ import { MeshTextureInt } from "./interfaces";
 
 import Resources from "../../experience/utils/Resources";
 import sources from "../../sources/snowManSources";
-import { Snowman, PollLight, Snow } from "./objects";
+import { Snowman, PollLight, Particles } from "./objects";
 import Text3D from "./text";
 
 export default class SnowmanPlace {
@@ -21,7 +21,7 @@ export default class SnowmanPlace {
   textures: MeshTextureInt;
   snowman: Snowman;
   pollLight: PollLight;
-  snow: Snow;
+  snow: Particles;
   text: Text3D;
 
   constructor() {
@@ -97,11 +97,11 @@ export default class SnowmanPlace {
     this.pollLight.group.position.z = -0.5;
   }
   createSnow() {
-    const snowTexture: MeshTextureInt = {
+    const particlesTexture: MeshTextureInt = {
       map: this.resources.items.snowMap,
     };
-    this.snow = new Snow({
-      snowTexture,
+    this.snow = new Particles({
+      particlesTexture,
     });
     this.snow.points.position.y = 1;
   }
